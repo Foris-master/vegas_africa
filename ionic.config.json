@@ -1,0 +1,8 @@
+{
+  "name": "vegas_africa",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
