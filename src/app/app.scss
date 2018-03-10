@@ -14,3 +14,37 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+body{
+  background: url("../assets/imgs/bg.svg");
+  background-size: cover;
+}
+
+ion-app,ion-content {
+  background: transparent !important;
+}
+
+.toast-success {
+  text-align: center;
+  > div{
+    background-color:  map-get($colors, secondary) !important;
+  }
+}
+.toast-error {
+  text-align: center;
+  > div{
+    background-color:  map-get($colors, danger) !important;
+  }
+}
+.toast-info {
+  text-align: center;
+  > div{
+    background-color:  map-get($colors, light) !important;
+  }
+}
+.toast-warning {
+  text-align: center;
+  > div{
+    background-color:  map-get($colors, dark) !important;
+  }
+}
