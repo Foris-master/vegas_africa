@@ -1,0 +1,23 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+
+  <div class="contenu">
+    <ion-title text-center  class="bienvenue">Creer un compte !</ion-title>
+    <form  text-center padding   [formGroup]="register_form" (ngSubmit)="register()">
+      <input type="text" placeholder="Nom"  formControlName="name">
+      <input type="text" placeholder="Telephone"  formControlName="tel">
+      <input type="email" placeholder="Email"  formControlName="email">
+      <input type="text" placeholder="Numero de carte"  formControlName="cni">
+      <input type="text" placeholder="Ville"  formControlName="town">
+      <input type="password" placeholder="Mot de passe"  formControlName="password">
+      <button ion-button block [disabled]="!register_form.valid">Creer</button>
+    </form>
+
+    <div class="singup" text-center (click)="login()">Vous avez deja un compte? Se connecter</div>
+  </div>
+</ion-content>

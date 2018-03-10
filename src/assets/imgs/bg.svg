@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="375px" height="667px" viewBox="0 0 375 667" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>3201E4A4-6B70-4C97-A1C9-6EB2F0CCE67A</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="100%" x2="0%" y2="6.24500451e-15%" id="linearGradient-1">
+            <stop stop-color="#090338" offset="0%"></stop>
+            <stop stop-color="#C86DD7" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="2-Log-in" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BG">
+            <rect id="Rectangle" fill="#000000" x="0" y="0" width="375" height="667"></rect>
+            <rect id="Rectangle-Copy" fill-opacity="0.640000045" fill="url(#linearGradient-1)" opacity="0.672049907" x="0" y="0" width="375" height="667"></rect>
+        </g>
+    </g>
+</svg>
