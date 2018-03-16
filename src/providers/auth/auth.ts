@@ -1,5 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {AuthenticatedUser} from "../../models/user";
+import {UserProvider} from "../user/user";
 
 /*
   Generated class for the AuthProvider provider.
@@ -7,7 +9,6 @@ import { Injectable } from '@angular/core';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-let apiUrl ='http://www.vegasafrica.net/management/api/Management/';
 
 interface BackResp {
   code: string,
@@ -17,10 +18,40 @@ interface BackResp {
 
 @Injectable()
 export class AuthProvider {
+  public BASE_URL ='http://www.vegasafrica.net/management/api/Management/';
+  private user: AuthenticatedUser;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,private userService: UserProvider) {
     console.log('Hello AuthProvider Provider');
+    this.getAuthUser()
   }
+  isAuthenticated(){
+    return new Promise((resolve )=>{
+      this.userService.getOnStorage().then(
+        (user) => {
+          if(user&&user.cle_de_session){
+            resolve(true)
+          }else{
+            resolve(false);
+          }
+        });
+    });
+  }
+  getAuthUser():Promise<AuthenticatedUser>{
+    return new Promise((resolve)=>{
+       this.userService.getOnStorage().then(
+        (user) => {
+          this.user = user;
+          resolve(user)
+        });
+    })
+
+  }
+  /**
+   * Get the Json Web Token from the local storage.
+   *
+   * @returns {RequestOptions}
+   */
 
   request_reset(data: {login: string}) {
     let d = {}
@@ -36,7 +67,7 @@ export class AuthProvider {
     }
     return new Promise((resolve, reject) => {
 
-      this.http.post(apiUrl + 'forgotpassword', d)
+      this.http.post(this.BASE_URL + 'forgotpassword', d)
         .subscribe(res => {
           console.log(res)
           if(res["code"]==200){
@@ -56,7 +87,7 @@ export class AuthProvider {
 
     return new Promise((resolve, reject) => {
 
-      this.http.post(apiUrl + 'forgotpassword', data)
+      this.http.post(this.BASE_URL + 'forgotpassword', data)
         .subscribe(res => {
           console.log(res)
           if(res["code"]==200){
@@ -71,25 +102,16 @@ export class AuthProvider {
   }
 
   login(data: {login: string,mot_de_pass: string}) {
-    let d = {}
-    if(data.login.split("@").length>1){
-      d = {
-        email : data.login,
-        mot_de_pass : data.mot_de_pass,
-      };
-    }else {
-      d= {
-        num_tel : data.login,
-        mot_de_pass : data.mot_de_pass,
-      };
-    }
     return new Promise((resolve, reject) => {
 
-      this.http.post<BackResp>(apiUrl + 'login', d)
+      this.http.post<BackResp>(this.BASE_URL + 'login', data)
         .subscribe(res => {
-          console.log(res)
           if(res.code=="200"){
-            resolve(res);
+            let user = AuthenticatedUser.ParseFromObject(JSON.parse(res.message));
+
+            this.userService.createOnStorage(user).then(()=>{
+              resolve(user)
+            });
           }else{
             reject(res);
           }
@@ -100,7 +122,7 @@ export class AuthProvider {
   }
 
 
-  register(data: {email:string,mot_de_pass:string,ville:string,num_tel:string,num_carte:string}) {
+  register(data: {email:string,mot_de_pass:string,ville:string,num_tel:string}) {
     return new Promise((resolve, reject) => {
       // let headers = new Headers();
      /*let headers = new HttpHeaders()
@@ -111,7 +133,7 @@ export class AuthProvider {
         })
       };*/
 
-      this.http.post<BackResp>(apiUrl + 'registration',data)
+      this.http.post<BackResp>(this.BASE_URL + 'registration',data)
         .subscribe(res => {
           console.log(res)
           if(res.code=="200"){
@@ -136,4 +158,6 @@ export class AuthProvider {
         });
     });
   }
+
+
 }
