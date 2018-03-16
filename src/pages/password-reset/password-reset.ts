@@ -84,6 +84,7 @@ export class PasswordResetPage {
   }
 
   login(){
+
     this.navCtrl.pop()
   }
 
