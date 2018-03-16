@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Votre Solde</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div text-center class="zone">
+      <h2 ion-text color="primary">Votre solde est de :</h2>
+      <ion-row>
+        <ion-col col-2></ion-col>
+
+        <ion-col col-8 text-center>
+          <div class="amount">
+            <br>
+            <br>
+            <p >
+              {{discount}}
+            </p>
+            <p>
+              FCFA
+            </p>
+          </div>
+        </ion-col>
+        <ion-col col-2></ion-col>
+      </ion-row>
+      <ion-row align-items-start=""></ion-row>
+
+    </div>
+
+  <!--<p>{{discount}}</p>-->
+
+</ion-content>
+
