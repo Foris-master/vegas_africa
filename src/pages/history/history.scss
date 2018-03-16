@@ -1,0 +1,18 @@
+page-history {
+  ion-item-sliding{
+    background-color: #4b2853 !important;
+    box-shadow: 1px 3px 4px map-get($colors, primary);
+  }
+
+  ion-item{
+    background-color: #4b2853 !important;
+    color: white !important;
+  }
+  p{
+    color: white !important;
+  }
+
+  hr{
+    background-color: map-get($colors, primary) ;
+  }
+}

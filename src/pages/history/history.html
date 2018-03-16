@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Historique</ion-title>
+  </ion-navbar>
+</ion-header>
+  <ion-content padding style="width: 100%;height: 100%;">
+      <ion-list *ngFor="let h of historisques" >
+        <ion-item-sliding>
+          <ion-item>
+            <h2 text-capitalize >Client : {{h.utilisateur}}</h2>
+            <hr>
+            <div *ngIf="h.show_details">
+              Montant : {{h.montant}} FCFA
+              <hr>
+              Solde Restant :  {{h.solde_restant}} FCFA
+              <hr>
+              Date : {{h.date_operation}}
+              <hr>
+            </div>
+            Description :
+            <hr>
+            <p [innerHTML]="h.description"></p>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="primary" (click)="show(h)">
+              <ion-icon name="more"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      <ion-item *ngIf="!canload">
+        Plus d'elements
+      </ion-item>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Recuperation des transactions..."></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  </ion-content>
+
