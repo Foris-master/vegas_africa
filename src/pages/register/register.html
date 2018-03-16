@@ -5,16 +5,92 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-
+  <div text-center>
+    <img src="assets/imgs/logo.png" alt="">
+  </div>
   <div class="contenu">
     <ion-title text-center  class="bienvenue">Creer un compte !</ion-title>
     <form  text-center padding   [formGroup]="register_form" (ngSubmit)="register()">
+
       <input type="text" placeholder="Nom"  formControlName="name">
+      <div *ngIf="register_form.controls.name.errors && (register_form.controls.name.dirty || register_form.controls.name.touched)">
+        <p ion-text
+           *ngIf="register_form.controls.name.errors.required"
+           color="danger"
+           text-left
+        >
+          le nom est requit
+        </p>
+      </div>
+
       <input type="text" placeholder="Telephone"  formControlName="tel">
+      <div *ngIf="register_form.controls.tel.errors && (register_form.controls.tel.dirty || register_form.controls.tel.touched)">
+        <p ion-text
+           *ngIf="register_form.controls.tel.errors.required"
+           color="danger"
+           text-left
+        >
+          le numero de telephone est requit
+        </p>
+        <p ion-text
+           *ngIf="register_form.controls.tel.errors.minlength"
+           color="danger"
+           text-left
+        >
+          longueur min 9 , manque : {{ register_form.controls.tel.errors.minlength.requiredLength - register_form.controls.tel.errors.minlength.actualLength }}
+        </p>
+
+      </div>
+
       <input type="email" placeholder="Email"  formControlName="email">
-      <input type="text" placeholder="Numero de carte"  formControlName="cni">
+      <div *ngIf="register_form.controls.email.errors && (register_form.controls.email.dirty || register_form.controls.email.touched)">
+        <p ion-text
+           *ngIf="register_form.controls.email.errors.required"
+           color="danger"
+           text-left
+        >
+          l email est requise
+        </p>
+        <p ion-text
+           *ngIf="register_form.controls.email.errors.email"
+           color="danger"
+           text-left
+        >
+          adresse email valide attendue !
+        </p>
+
+      </div>
+
       <input type="text" placeholder="Ville"  formControlName="town">
+      <div *ngIf="register_form.controls.town.errors && (register_form.controls.town.dirty || register_form.controls.town.touched)">
+        <p ion-text
+           *ngIf="register_form.controls.town.errors.required"
+           color="danger"
+           text-left
+        >
+          la ville est requise
+        </p>
+      </div>
+
       <input type="password" placeholder="Mot de passe"  formControlName="password">
+      <div *ngIf="register_form.controls.password.errors && (register_form.controls.password.dirty || register_form.controls.password.touched)">
+        <p ion-text
+           *ngIf="register_form.controls.password.errors.required"
+           color="danger"
+           text-left
+        >
+          l'email ou le telephone est requit
+        </p>
+        <p ion-text
+           *ngIf="register_form.controls.password.errors.minlength"
+           color="danger"
+           text-left
+        >
+          longuer min 8 , manque : {{ register_form.controls.password.errors.minlength.requiredLength - register_form.controls.password.errors.minlength.actualLength }}
+        </p>
+
+      </div>
+
       <button ion-button block [disabled]="!register_form.valid">Creer</button>
     </form>
 

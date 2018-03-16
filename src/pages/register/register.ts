@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AuthProvider} from "../../providers/auth/auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {HomePage} from "../home/home";
 import {ToastProvider} from "../../providers/toast/toast";
+import {HistoryPage} from "../history/history";
 
 /**
  * Generated class for the RegisterPage page.
@@ -23,12 +23,11 @@ export class RegisterPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider) {
     this.register_form = this._FB.group({
-      'name'        : ['', Validators.required],
-      'tel'     : ['', Validators.required],
-      'email'     : ['', Validators.required],
-      'cni'     : ['', Validators.required],
-      'town'     : ['', Validators.required],
-      'password'     : ['', Validators.required]
+      'name'        : ['', Validators.compose([Validators.required])],
+      'tel'     : ['', Validators.compose([Validators.required,Validators.minLength(9)])],
+      'email'     : ['',Validators.compose([ Validators.required,Validators.email])],
+      'town'     : ['', Validators.compose([Validators.required])],
+      'password'     : ['', Validators.compose([Validators.required])]
     });
 
   }
@@ -44,7 +43,6 @@ export class RegisterPage {
       nom_prenom : this.register_form.controls['name'].value,
       email : this.register_form.controls['email'].value,
       ville : this.register_form.controls['town'].value,
-      num_carte : this.register_form.controls['cni'].value,
       num_tel : this.register_form.controls['tel'].value,
       mot_de_pass : this.register_form.controls['password'].value,
     };
@@ -54,7 +52,7 @@ export class RegisterPage {
       .then((auth : any) =>
       {
         this.toast.success("compte cree avec sucess");
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(HistoryPage);
       })
       .catch((error : any) =>
       {

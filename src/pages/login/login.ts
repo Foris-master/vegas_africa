@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {HomePage} from "../home/home";
 import {AuthProvider} from "../../providers/auth/auth";
 import {RegisterPage} from "../register/register";
 import {PasswordResetPage} from "../password-reset/password-reset";
 import {ToastProvider} from "../../providers/toast/toast";
+import {HistoryPage} from "../history/history";
 
 /**
  * Generated class for the LoginPage page.
@@ -26,10 +26,15 @@ export class LoginPage {
               private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider) {
     // Define FormGroup object using Angular's FormBuilder
     this.login_form = this._FB.group({
-      'login'        : ['', Validators.required],
-      'password'     : ['', Validators.required]
+      'login'        : ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      'password'     : ['', Validators.compose([Validators.required,Validators.minLength(4)])]
     });
 
+    this._AUTH.isAuthenticated().then((b)=>{
+      if(b){
+        this.navCtrl.setRoot(HistoryPage);
+      }
+    })
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -49,7 +54,7 @@ export class LoginPage {
       .then((auth : any) =>
       {
         this.toast.success('vous etes en ligne')
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(HistoryPage);
       })
       .catch((error : any) =>
       {

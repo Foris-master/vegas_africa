@@ -5,13 +5,35 @@
   Ionic pages and navigation.
 -->
 <ion-content padding>
-
+  <div text-center>
+    <img src="assets/imgs/logo.png" alt="">
+  </div>
   <div class="contenu">
     <ion-title text-center  class="bienvenue">Bienvenue !</ion-title>
 
     <form  text-center padding   [formGroup]="login_form" (ngSubmit)="logIn()">
       <input type="text" placeholder="Email ou Telephone"  formControlName="login">
+      <div *ngIf="login_form.controls.login.errors && (login_form.controls.login.dirty || login_form.controls.login.touched)">
+        <p ion-text
+           *ngIf="login_form.controls.login.errors.required"
+           color="danger"
+           text-left
+        >
+          l'email ou le telephone est requit
+        </p>
+      </div>
       <input type="password" placeholder="Mot de passe"  formControlName="password">
+      <div *ngIf="login_form.controls.password.errors && (login_form.controls.password.dirty || login_form.controls.password.touched)">
+        <p ion-text
+           *ngIf="login_form.controls.password.errors.required"
+           color="danger"
+           text-left
+        >
+          le mot de passe est requit
+        </p>
+
+      </div>
+
       <div text-right ion-text color="primary"   class="forgotten" (click)="forgotten()">
         <span class="">Mot de passe oublie ?</span>
       </div>
