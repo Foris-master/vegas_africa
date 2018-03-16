@@ -44,6 +44,21 @@ $colors: (
 $toolbar-md-title-text-color: map-get($colors, primary);
 $toolbar-ios-title-text-color: map-get($colors, primary);
 
+$toolbar-ios-background:rgba(0,0,0,0);
+$toolbar-md-background:rgba(0,0,0,0);
+
+$loading-ios-text-color:white;
+$loading-md-text-color: white;
+
+$loading-ios-spinner-dots-color: white;
+$loading-md-spinner-dots-color: white;
+
+
+$infinite-scroll-loading-color : white;
+
+$loading-ios-background: map-get($colors, primary);
+$loading-md-background: map-get($colors, primary);
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

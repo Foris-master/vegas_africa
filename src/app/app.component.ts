@@ -4,8 +4,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import {HistoryPage} from "../pages/history/history";
+import {ProfilePage} from "../pages/profile/profile";
+import {ContactsPage} from "../pages/contacts/contacts";
+import {SoldePage} from "../pages/solde/solde";
+import {UserProvider} from "../providers/user/user";
+import {AuthProvider} from "../providers/auth/auth";
+import {AuthenticatedUser} from "../models/user";
 
 @Component({
   templateUrl: 'app.html'
@@ -13,22 +19,27 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = ContactsPage;
+  public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+              public userStorage: UserProvider,public auth: AuthProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Profile', component: HomePage },
-      { title: 'Transaction', component: ListPage },
-      { title: 'Historique', component: ListPage },
-      { title: 'Solde', component: ListPage },
-      { title: 'Contacts', component: ListPage },
+      { title: 'Historique', component: HistoryPage },
+      { title: 'Solde', component: SoldePage },
+      { title: 'Contacts', component: ContactsPage },
+      { title: 'Profile', component: ProfilePage },
       { title: 'Deconnexion', component: LoginPage },
     ];
+
+    this.auth.getAuthUser().then((user)=>{
+      this.user= user;
+    });
 
   }
 
@@ -44,6 +55,10 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.userStorage.deleteOnStorage().then(()=>{
+      this.nav.setRoot(page.component);
+    },(err)=>{
+      console.log(err)
+    })
   }
 }

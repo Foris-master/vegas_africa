@@ -1,7 +1,15 @@
 <ion-menu [content]="content">
-  <ion-header>
+  <ion-header color="primary">
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-row>
+        <ion-col col-4>
+          <img src="assets/imgs/logo.png" alt="">
+        </ion-col>
+        <ion-col col-8>
+          <span>{{user.nom_prenom}}</span>
+          <span>{{user.email}}</span>
+        </ion-col>
+      </ion-row>
     </ion-toolbar>
   </ion-header>
 
