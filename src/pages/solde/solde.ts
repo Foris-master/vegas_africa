@@ -21,14 +21,25 @@ import {AuthenticatedUser} from "../../models/user";
 export class SoldePage {
 
   private  discount : number;
+  public login : string ;
+  public cle_de_session : string ;
   constructor(public navCtrl: NavController, public navParams: NavParams,private API: ApiProvider,private  Auth : AuthProvider) {
-      this.API.getRequest('solde').then(
+    this.Auth.getAuthUser().then((u)=>{
+       console.log(u);
+      this.login=u.email;
+      this.cle_de_session= u.cle_de_session;
+      let p = {
+        login: this.login,
+        cle_de_session: this.cle_de_session,
+      };
+      this.API.getRequest('solde',p).then(
         (data: any)=>{
           this.discount = parseFloat(data.message);
         },(err)=>{
           console.log(err)
         }
       )
+    })
 
   }
 

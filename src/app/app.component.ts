@@ -20,7 +20,7 @@ import {RegisterPage} from "../pages/register/register";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = RegisterPage;
+  rootPage: any = LoginPage;
   public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
   pages: Array<{title: string, component: any,icon?: string}>;
 
@@ -56,10 +56,15 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.userStorage.deleteOnStorage().then(()=>{
+    if(page.title=="Deconnexion"){
+      this.userStorage.deleteOnStorage().then(()=>{
+        this.nav.setRoot(page.component);
+      },(err)=>{
+        console.log(err)
+      })
+    }else{
       this.nav.setRoot(page.component);
-    },(err)=>{
-      console.log(err)
-    })
+    }
+
   }
 }

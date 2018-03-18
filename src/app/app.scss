@@ -16,8 +16,10 @@
 // automatically applied to the <body> element in the app.
 
 body{
-  background: url("../assets/imgs/bg.svg");
-  background-size: cover;
+ /* background: url("../assets/imgs/bg.svg");
+  background-size: cover;*/
+  background:  linear-gradient(rgb(75, 40, 83), #150e1d) !important ;
+
 }
 
 ion-app,ion-content {
@@ -89,8 +91,10 @@ button{
 }
 
 .menu-cont{
-  background:  linear-gradient(rgba(75, 40, 83, 0.78), #4b2853) !important ;
+  //background:  linear-gradient(rgba(75, 40, 83, 0.78), #4b2853) !important ;
   color:white !important;
+  background:  linear-gradient(rgb(75, 40, 83), #241429) !important ;
+
 }
 
 ion-menu ion-header{

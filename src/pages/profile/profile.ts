@@ -23,6 +23,8 @@ export class ProfilePage {
 
   public  user : AuthenticatedUser;
   public profile_form: FormGroup;
+  public login : string;
+  public cle_de_session : string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private _FB : FormBuilder,
               public auth: AuthProvider, public api : ApiProvider,private  toast: ToastProvider) {
     this.user= AuthenticatedUser.GetNewInstance();
@@ -39,6 +41,8 @@ export class ProfilePage {
     });
     this.auth.getAuthUser().then((user)=>{
       this.user = user;
+      this.login=user.email
+      this.cle_de_session=user.cle_de_session
       this.profile_form.controls.nom_prenom.setValue(this.user.nom_prenom)
       this.profile_form.controls.num_tel.setValue(this.user.num_tel)
       this.profile_form.controls.email.setValue(this.user.email)
@@ -54,13 +58,14 @@ export class ProfilePage {
       email : this.profile_form.controls['email'].value,
       ville : this.profile_form.controls['ville'].value,
       num_tel : this.profile_form.controls['num_tel'].value,
+      login: this.login,
+      cle_de_session: this.cle_de_session
     };
     let p = this.profile_form.controls['mot_de_pass'].value;
     let k = p&&p!="";
     if(k){
       d["mot_de_pass"] = p;
     }
-
     this.api.postRequest('modification',d).then((data)=>{
       console.log(data)
       this.toast.success('profile mis a jour!')

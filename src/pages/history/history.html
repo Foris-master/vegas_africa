@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
   <ion-content padding style="width: 100%;height: 100%;">
-      <ion-list *ngFor="let h of historisques" >
+      <ion-list *ngFor="let h of historisques">
         <ion-item-sliding>
           <ion-item>
             <h2 text-capitalize >Client : {{h.utilisateur}}</h2>
@@ -34,7 +34,7 @@
       <ion-item *ngIf="!canload">
         Plus d'elements
       </ion-item>
-      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
+      <ion-infinite-scroll  (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Recuperation des transactions..."></ion-infinite-scroll-content>
       </ion-infinite-scroll>
   </ion-content>
