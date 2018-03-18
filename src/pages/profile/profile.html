@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Editer votre Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form  text-center    [formGroup]="profile_form" (ngSubmit)="update()">
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Nom
+      </ion-label>
+      <ion-input clearInput  formControlName="nom_prenom"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.nom_prenom.errors && (profile_form.controls.nom_prenom.dirty || profile_form.controls.nom_prenom.touched)">
+      <p ion-text
+         *ngIf="profile_form.controls.nom_prenom.errors.required"
+         color="danger"
+         text-left
+      >
+        le nom est requit
+      </p>
+    </div>
+
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Telephone
+      </ion-label>
+      <ion-input clearInput  formControlName="num_tel"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.num_tel.errors && (profile_form.controls.num_tel.dirty || profile_form.controls.num_tel.touched)">
+      <p ion-text
+         *ngIf="profile_form.controls.num_tel.errors.required"
+         color="danger"
+         text-left
+      >
+        le numero de telephone est requit
+      </p>
+      <p ion-text
+         *ngIf="profile_form.controls.num_tel.errors.minlength"
+         color="danger"
+         text-left
+      >
+        longueur min 9 , manque : {{ profile_form.controls.num_tel.errors.minlength.requiredLength - profile_form.controls.num_tel.errors.minlength.actualLength }}
+      </p>
+
+    </div>
+
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Email
+      </ion-label>
+      <ion-input type="email" clearInput  formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.email.errors && (profile_form.controls.email.dirty || profile_form.controls.email.touched)">
+      <p ion-text
+         *ngIf="profile_form.controls.email.errors.required"
+         color="danger"
+         text-left
+      >
+        l email est requise
+      </p>
+      <p ion-text
+         *ngIf="profile_form.controls.email.errors.email"
+         color="danger"
+         text-left
+      >
+        adresse email valide attendue !
+      </p>
+
+    </div>
+
+
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Ville
+      </ion-label>
+      <ion-input clearInput  formControlName="ville"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.ville.errors && (profile_form.controls.ville.dirty || profile_form.controls.ville.touched)">
+      <p ion-text
+         *ngIf="profile_form.controls.ville.errors.required"
+         color="danger"
+         text-left
+      >
+        la ville est requise
+      </p>
+    </div>
+
+
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Mot de passe
+      </ion-label>
+      <ion-input type="password" clearInput  formControlName="mot_de_pass"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.mot_de_pass.errors && (profile_form.controls.mot_de_pass.dirty || profile_form.controls.mot_de_pass.touched)">
+      <p ion-text
+         *ngIf="profile_form.controls.mot_de_pass.errors.required"
+         color="danger"
+         text-left
+      >
+        l'email ou le telephone est requit
+      </p>
+      <p ion-text
+         *ngIf="profile_form.controls.mot_de_pass.errors.minlength"
+         color="danger"
+         text-left
+      >
+        longuer min 8 , manque : {{ profile_form.controls.mot_de_pass.errors.minlength.mot_de_pass - profile_form.controls.mot_de_pass.errors.minlength.actualLength }}
+      </p>
+
+    </div>
+
+
+    <ion-item>
+      <ion-label   color="primary" floating>
+        Confirmer le mot de passe
+      </ion-label>
+      <ion-input type="password" clearInput  formControlName="mot_de_pass_confirm"></ion-input>
+    </ion-item>
+    <div *ngIf="profile_form.controls.mot_de_pass_confirm.errors &&
+                (profile_form.controls.mot_de_pass_confirm.dirty
+                || profile_form.controls.mot_de_pass_confirm.touched
+                || profile_form.controls.mot_de_pass.touched
+                )">
+      <p ion-text
+         *ngIf="profile_form.controls.mot_de_pass_confirm.errors.MatchPassword"
+         color="danger"
+         text-left
+      >
+        la confirmation du mot de passe ne correspond pas
+      </p>
+
+    </div>
+
+    <button ion-button block [disabled]="!profile_form.valid">Modifier</button>
+  </form>
+
+</ion-content>
