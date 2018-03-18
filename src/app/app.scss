@@ -48,3 +48,43 @@ ion-app,ion-content {
     background-color:  map-get($colors, dark) !important;
   }
 }
+
+
+.contenu {
+  margin-top: 10px;
+}
+
+.toolbar-title {
+  font-size: 3rem;
+}
+
+input::placeholder{
+  color: darkgrey;
+}
+
+input{
+  width: 100%;
+  height: 60px;
+  color: white;
+  background: rgba(80, 43, 87, 0.56);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px 0px;
+  font-size: 15px;
+}
+
+button{
+  height: 60px !important;
+}
+
+.singup {
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.forgotten{
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+

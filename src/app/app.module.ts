@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { PasswordResetPage } from '../pages/password-reset/password-reset';
@@ -22,6 +21,8 @@ import { ApiProvider } from '../providers/api/api';
 import { UserProvider } from '../providers/user/user';
 import {IonicStorageModule} from "@ionic/Storage";
 import {httpInterceptorProviders} from "../interceptors/index";
+import {CartesPage} from "../pages/cartes/cartes";
+import {ClientModalPage} from "../pages/client-modal/client-modal";
 
 
 
@@ -29,15 +30,17 @@ import {httpInterceptorProviders} from "../interceptors/index";
 @NgModule({
   declarations: [
     MyApp,
-    ListPage,
     RegisterPage,
     LoginPage,
     PasswordResetPage,
     ProfilePage,
     HistoryPage,
     ContactsPage,
-    SoldePage
+    SoldePage,
+    CartesPage,
+    ClientModalPage
   ],
+
 
   imports: [
     BrowserModule,
@@ -52,14 +55,15 @@ import {httpInterceptorProviders} from "../interceptors/index";
 
   entryComponents: [
     MyApp,
-    ListPage,
     LoginPage,
     RegisterPage,
     PasswordResetPage,
     ProfilePage,
     HistoryPage,
     ContactsPage,
-    SoldePage
+    SoldePage,
+    CartesPage,
+    ClientModalPage
   ],
 
   providers: [

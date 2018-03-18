@@ -4,8 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import {LoadingController} from "ionic-angular";
 import {UserProvider} from "../providers/user/user";
-import {AuthenticatedUser} from "../models/user";
-import set = Reflect.set;
+
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -15,25 +14,31 @@ export class LoadingInterceptor implements HttpInterceptor {
   public  isView: boolean=false;
 
   constructor(public loadingCtrl: LoadingController,public  userService : UserProvider) {
-    this.getUser()
+    this.userService.getOnStorage();
   }
 
   async getUser(){
     return await  this.userService.getOnStorage();
   }
    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     let lprom = null;
-
      if(!this.isView){
        lprom = this.show(!(req.params.get("show_loading")=='false'));
      }
-    let user =this.userService.user ;
-    let p = req.params.set("login",user.email)
-      .set("cle_de_session",user.cle_de_session);
-    req = req.clone({
-      params : p,
-    });
+     /*if(req.method=='GET'){
+       let p = req.params.set("login",this.userService.user.email)
+         .set("cle_de_session",this.userService.user.cle_de_session);
+       req = req.clone({
+         params : p,
+       });
+     }else if(req.method=='POST'&& req.body.login==null){
+       req.body.login=this.userService.user.email
+       req.body.cle_de_session=this.userService.user.cle_de_session
+
+       /!*req = req.clone({
+         body : p,
+       });*!/
+     }*/
 
     return next.handle(req).do(evt => {
       if (evt instanceof HttpResponse) {

@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { ListPage } from '../pages/list/list';
 import {HistoryPage} from "../pages/history/history";
 import {ProfilePage} from "../pages/profile/profile";
 import {ContactsPage} from "../pages/contacts/contacts";
@@ -12,6 +11,7 @@ import {SoldePage} from "../pages/solde/solde";
 import {UserProvider} from "../providers/user/user";
 import {AuthProvider} from "../providers/auth/auth";
 import {AuthenticatedUser} from "../models/user";
+import {CartesPage} from "../pages/cartes/cartes";
 
 @Component({
   templateUrl: 'app.html'
@@ -19,9 +19,8 @@ import {AuthenticatedUser} from "../models/user";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = ContactsPage;
+  rootPage: any = CartesPage;
   public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
-
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
@@ -32,10 +31,12 @@ export class MyApp {
     this.pages = [
       { title: 'Historique', component: HistoryPage },
       { title: 'Solde', component: SoldePage },
-      { title: 'Contacts', component: ContactsPage },
+      { title: 'Clients', component: CartesPage },
       { title: 'Profile', component: ProfilePage },
+      { title: 'Contacter', component: ContactsPage },
       { title: 'Deconnexion', component: LoginPage },
     ];
+
 
     this.auth.getAuthUser().then((user)=>{
       this.user= user;
