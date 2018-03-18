@@ -10,9 +10,13 @@
   </div>
   <div class="contenu">
     <ion-title text-center  class="bienvenue">Bienvenue !</ion-title>
-
     <form  text-center padding   [formGroup]="login_form" (ngSubmit)="logIn()">
-      <input type="text" placeholder="Email ou Telephone"  formControlName="login">
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Email ou Telephone
+        </ion-label>
+        <ion-input clearInput  formControlName="login"></ion-input>
+      </ion-item>
       <div *ngIf="login_form.controls.login.errors && (login_form.controls.login.dirty || login_form.controls.login.touched)">
         <p ion-text
            *ngIf="login_form.controls.login.errors.required"
@@ -22,7 +26,13 @@
           l'email ou le telephone est requit
         </p>
       </div>
-      <input type="password" placeholder="Mot de passe"  formControlName="password">
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Mot de passe
+        </ion-label>
+        <ion-input type="password" clearInput  formControlName="password"></ion-input>
+      </ion-item>
       <div *ngIf="login_form.controls.password.errors && (login_form.controls.password.dirty || login_form.controls.password.touched)">
         <p ion-text
            *ngIf="login_form.controls.password.errors.required"
