@@ -6,6 +6,7 @@ export class AuthenticatedUser {
   private _num_tel: string;
   private _email: string;
   private _ville: string;
+  private _mot_de_pass: string;
 
 
   public static GetNewInstance(): AuthenticatedUser {
@@ -27,7 +28,12 @@ export class AuthenticatedUser {
   }
 
   constructor(nom_prenom: string, id: number, cle_de_session: string) {
-    this._nom_prenom = nom_prenom;
+    this._nom_prenom = null;
+    this._num_tel = null;
+    this._email = null;
+    this._ville = null;
+    this._num_tel = null;
+    this._mot_de_pass = "";
     this._cle_de_session = cle_de_session;
   }
 
@@ -71,6 +77,14 @@ export class AuthenticatedUser {
 
   set ville(value: string) {
     this._ville = value;
+  }
+
+  get mot_de_pass(): string {
+    return this._mot_de_pass;
+  }
+
+  set mot_de_pass(mot_de_pass: string) {
+    this._mot_de_pass = mot_de_pass;
   }
 
   public toJSON()

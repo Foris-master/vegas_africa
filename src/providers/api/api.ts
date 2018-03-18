@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {AuthenticatedUser} from "../../models/user";
 import {UserProvider} from "../user/user";
 import {Transaction} from "../../models/transaction";
+import {Carte} from "../../models/carte";
 
 /*
   Generated class for the this provider.
@@ -128,6 +129,8 @@ export class ApiProvider {
             if(res.code=="200"){
               if(url=='historique'){
                 res.message.data = Transaction.ParseFromArray(res.message.data)
+              }else if(url=='lister_client_info'){
+                res.message = Carte.ParseFromArray(res.message)
               }
               resolve(res);
             }else{

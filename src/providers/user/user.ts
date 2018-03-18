@@ -13,7 +13,7 @@ import {Storage} from "@ionic/Storage";
 export class UserProvider {
 
   private _user: Subject<AuthenticatedUser> = new Subject<AuthenticatedUser>();
-  private _user2: AuthenticatedUser;
+  private _user2: AuthenticatedUser=AuthenticatedUser.GetNewInstance();
 
   constructor(private storage: Storage) {
     this.getOnStorage().then((u)=>{
@@ -47,21 +47,25 @@ export class UserProvider {
     return new Promise((resolve) => {
       console.log('ok')
       this.getOnStorage().then((res) => {
-
-        if (res) {
+        /*if (res) {
 
           this.deleteOnStorage().then(() => {
-
+            this.updateUserService(user);
+            this.storage.set('user', JSON.stringify(user)).then(()=>{
+              resolve();
+            });
           });
-        }
-      }).then(() => {
-
+        }else {
+          this.updateUserService(user);
+          this.storage.set('user', JSON.stringify(user)).then(()=>{
+            resolve();
+          });
+        }*/
         this.updateUserService(user);
-        this.storage.set('user', JSON.stringify(user));
-        console.log('okkkkk')
-
-        resolve();
-      });
+        this.storage.set('user', JSON.stringify(user)).then(()=>{
+          resolve();
+        });
+      })
     });
   }
 
@@ -74,12 +78,12 @@ export class UserProvider {
     return new Promise((resolve,reject) => {
       this.storage.get('user').then((u)=>{
         this.updateUserService(u);
+        this._user2 =u;
         u = AuthenticatedUser.ParseFromObject(JSON.parse(u))
         resolve(u);
       },(err)=>{
         reject(err)
       })
-
     });
   }
 

@@ -108,7 +108,6 @@ export class AuthProvider {
         .subscribe(res => {
           if(res.code=="200"){
             let user = AuthenticatedUser.ParseFromObject(JSON.parse(res.message));
-
             this.userService.createOnStorage(user).then(()=>{
               resolve(user)
             });

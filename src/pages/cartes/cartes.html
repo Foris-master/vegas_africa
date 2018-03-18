@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Clients</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding style="width: 100%;height: 100%;">
+  <ion-list *ngFor="let c of clients" >
+    <ion-item-sliding>
+      <ion-item>
+        <h5 text-capitalize >N<sup>o</sup> carte : {{c.num_carte}}</h5>
+        <hr>
+        <h5 text-capitalize >Adresse : {{c.adresse}}</h5>
+        <hr>
+        <div *ngIf="c.show_details">
+          Ville : {{c.ville}}
+          <hr>
+          Quartier :  {{c.quartier}}
+          <hr>
+          Telephone : {{c.telephone}}
+          <hr>
+        </div>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary" (click)="show(c)">
+          <ion-icon name="more"></ion-icon>
+          Detail
+        </button>
+        <button ion-button color="light" (click)="edit(c)">
+          <ion-icon name="create"></ion-icon>
+          Editer
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="del(c)">
+          <ion-icon name="close"></ion-icon>
+          Supprimer
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <!--<ion-item *ngIf="!canload">
+    Plus d'elements
+  </ion-item>
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Recuperation des transactions..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>-->
+  <ion-fab right bottom (click)="edit()">
+    <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>
+
