@@ -6,17 +6,22 @@
           <img src="assets/imgs/logo.png" alt="">
         </ion-col>
         <ion-col col-8>
-          <span>{{user.nom_prenom}}</span>
-          <span>{{user.email}}</span>
+         <div class="menu-info">
+           <span>{{user.nom_prenom}}</span>
+           <br>
+           <br>
+           <span>{{user.email}}</span>
+         </div>
         </ion-col>
       </ion-row>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content class="menu-cont" >
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)"  >
         {{p.title}}
+        <ion-icon name="{{p.icon}}"></ion-icon>
       </button>
     </ion-list>
   </ion-content>

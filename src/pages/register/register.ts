@@ -4,6 +4,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastProvider} from "../../providers/toast/toast";
 import {HistoryPage} from "../history/history";
+import {PasswordValidation} from "../../validations/password_confirm";
+
 
 /**
  * Generated class for the RegisterPage page.
@@ -27,16 +29,16 @@ export class RegisterPage {
       'tel'     : ['', Validators.compose([Validators.required,Validators.minLength(9)])],
       'email'     : ['',Validators.compose([ Validators.required,Validators.email])],
       'town'     : ['', Validators.compose([Validators.required])],
-      'password'     : ['', Validators.compose([Validators.required])]
+      'mot_de_pass'     : ['', Validators.compose([Validators.required])],
+      'mot_de_pass_confirm'  : ["", Validators.compose([]) ],
+    },{
+      validator: PasswordValidation.MatchPassword // your validation method
     });
-
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
-
-
   register() : void
   {
     let d      ={
@@ -44,7 +46,7 @@ export class RegisterPage {
       email : this.register_form.controls['email'].value,
       ville : this.register_form.controls['town'].value,
       num_tel : this.register_form.controls['tel'].value,
-      mot_de_pass : this.register_form.controls['password'].value,
+      mot_de_pass : this.register_form.controls['mot_de_pass'].value,
     };
 
 

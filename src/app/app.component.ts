@@ -12,6 +12,7 @@ import {UserProvider} from "../providers/user/user";
 import {AuthProvider} from "../providers/auth/auth";
 import {AuthenticatedUser} from "../models/user";
 import {CartesPage} from "../pages/cartes/cartes";
+import {RegisterPage} from "../pages/register/register";
 
 @Component({
   templateUrl: 'app.html'
@@ -19,9 +20,9 @@ import {CartesPage} from "../pages/cartes/cartes";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CartesPage;
+  rootPage: any = RegisterPage;
   public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any,icon?: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
               public userStorage: UserProvider,public auth: AuthProvider) {
@@ -29,14 +30,13 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Historique', component: HistoryPage },
-      { title: 'Solde', component: SoldePage },
-      { title: 'Clients', component: CartesPage },
-      { title: 'Profile', component: ProfilePage },
-      { title: 'Contacter', component: ContactsPage },
-      { title: 'Deconnexion', component: LoginPage },
+      { title: 'Historique', component: HistoryPage , icon: "home"},
+      { title: 'Solde', component: SoldePage,icon: "card" },
+      { title: 'Clients', component: CartesPage,icon: "people" },
+      { title: 'Profile', component: ProfilePage,icon: "person" },
+      { title: 'Contacter', component: ContactsPage,icon: "help-circle" },
+      { title: 'Deconnexion', component: LoginPage,icon: "log-out" },
     ];
-
 
     this.auth.getAuthUser().then((user)=>{
       this.user= user;

@@ -88,3 +88,26 @@ button{
   font-size: 12px;
 }
 
+.menu-cont{
+  background:  linear-gradient(rgba(75, 40, 83, 0.78), #4b2853) !important ;
+  color:white !important;
+}
+
+ion-menu ion-header{
+  color: white;
+}
+
+ion-list button{
+  background: rgba(32, 17, 47, 0.53) !important;
+  color: white !important;
+  //font-size: 25px !important;
+  font-weight: bold !important;
+}
+
+ion-list button ion-icon{
+  float: right;
+}
+
+.menu-info{
+  padding-top: 20px;
+}

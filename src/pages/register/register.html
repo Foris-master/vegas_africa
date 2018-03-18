@@ -12,7 +12,12 @@
     <ion-title text-center  class="bienvenue">Creer un compte !</ion-title>
     <form  text-center padding   [formGroup]="register_form" (ngSubmit)="register()">
 
-      <input type="text" placeholder="Nom"  formControlName="name">
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Nom
+        </ion-label>
+        <ion-input clearInput  formControlName="name"></ion-input>
+      </ion-item>
       <div *ngIf="register_form.controls.name.errors && (register_form.controls.name.dirty || register_form.controls.name.touched)">
         <p ion-text
            *ngIf="register_form.controls.name.errors.required"
@@ -23,7 +28,13 @@
         </p>
       </div>
 
-      <input type="text" placeholder="Telephone"  formControlName="tel">
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Telephone
+        </ion-label>
+        <ion-input clearInput  formControlName="tel"></ion-input>
+      </ion-item>
       <div *ngIf="register_form.controls.tel.errors && (register_form.controls.tel.dirty || register_form.controls.tel.touched)">
         <p ion-text
            *ngIf="register_form.controls.tel.errors.required"
@@ -42,7 +53,13 @@
 
       </div>
 
-      <input type="email" placeholder="Email"  formControlName="email">
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Email
+        </ion-label>
+        <ion-input type="email" clearInput  formControlName="email"></ion-input>
+      </ion-item>
       <div *ngIf="register_form.controls.email.errors && (register_form.controls.email.dirty || register_form.controls.email.touched)">
         <p ion-text
            *ngIf="register_form.controls.email.errors.required"
@@ -61,7 +78,13 @@
 
       </div>
 
-      <input type="text" placeholder="Ville"  formControlName="town">
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Ville
+        </ion-label>
+        <ion-input clearInput  formControlName="town"></ion-input>
+      </ion-item>
       <div *ngIf="register_form.controls.town.errors && (register_form.controls.town.dirty || register_form.controls.town.touched)">
         <p ion-text
            *ngIf="register_form.controls.town.errors.required"
@@ -72,21 +95,47 @@
         </p>
       </div>
 
-      <input type="password" placeholder="Mot de passe"  formControlName="password">
-      <div *ngIf="register_form.controls.password.errors && (register_form.controls.password.dirty || register_form.controls.password.touched)">
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Mot de passe
+        </ion-label>
+        <ion-input type="password" clearInput  formControlName="mot_de_pass"></ion-input>
+      </ion-item>
+      <div *ngIf="register_form.controls.mot_de_pass.errors && (register_form.controls.mot_de_pass.dirty || register_form.controls.mot_de_pass.touched)">
         <p ion-text
-           *ngIf="register_form.controls.password.errors.required"
+           *ngIf="register_form.controls.mot_de_pass.errors.required"
            color="danger"
            text-left
         >
           l'email ou le telephone est requit
         </p>
         <p ion-text
-           *ngIf="register_form.controls.password.errors.minlength"
+           *ngIf="register_form.controls.mot_de_pass.errors.minlength"
            color="danger"
            text-left
         >
-          longuer min 8 , manque : {{ register_form.controls.password.errors.minlength.requiredLength - register_form.controls.password.errors.minlength.actualLength }}
+          longuer min 8 , manque : {{ register_form.controls.mot_de_pass.errors.minlength.requiredLength - register_form.controls.mot_de_pass.errors.minlength.actualLength }}
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label   color="primary" floating>
+          Confirmer le mot de passe
+        </ion-label>
+        <ion-input type="password" clearInput  formControlName="mot_de_pass_confirm"></ion-input>
+      </ion-item>
+      <div *ngIf="register_form.controls.mot_de_pass_confirm.errors &&
+                (register_form.controls.mot_de_pass_confirm.dirty
+                || register_form.controls.mot_de_pass_confirm.touched
+                || register_form.controls.mot_de_pass.touched
+                )">
+        <p ion-text
+           *ngIf="register_form.controls.mot_de_pass_confirm.errors.MatchPassword"
+           color="danger"
+           text-left
+        >
+          la confirmation du mot de passe ne correspond pas
         </p>
 
       </div>
