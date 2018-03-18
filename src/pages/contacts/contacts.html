@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Nous contacter</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div ion-text color="primary" padding>
+    <h5 ion-text text-center>Vegas Africa</h5>
+    <hr>
+    <p ion-text text-justify>
+      Trouvez votre bien immobilier (appartement, maison, terrain) à vendre ou à louer parmi des milliers d'annonces.
+    </p>
+    <hr>
+
+    <div>
+      Akwa, Rue Bebey Eyidi, Douala-Cameroun
+    </div>
+    <div>
+      (+237) 6 97 15 28 87
+    </div>
+    <div>
+      support@vegasafrica.ne
+    </div>
+  </div>
+
+  <form  text-center padding   [formGroup]="contact_form" (ngSubmit)="send()">
+    <ion-item>
+      <ion-label  for="msg" color="primary" floating>
+        Votre Message
+      </ion-label>
+      <ion-textarea name="msg" id="msg" cols="30" rows="3" formControlName="message" clearInput>
+
+      </ion-textarea>
+    </ion-item>
+    <div ion-text text-right color="primary">
+      {{this.contact_form.controls['message'].value.length}} /160
+      <ion-icon text-right name="refresh" (click)="clear()" isActive="true"> </ion-icon>
+    </div>
+    <br>
+    <button ion-button block [disabled]="!contact_form.valid">Envoyer</button>
+  </form>
+
+</ion-content>
+

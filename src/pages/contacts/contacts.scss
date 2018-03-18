@@ -1,0 +1,17 @@
+page-contacts {
+
+  .item-inner{
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  ion-item{
+    color: white !important;
+    background: rgba(80, 43, 87, 0.56) !important;
+    border: none;
+    border-radius: 5px;
+  }
+  ion-icon{
+    margin-left:10px;
+  }
+}
