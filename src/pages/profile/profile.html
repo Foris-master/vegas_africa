@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Editer votre Profile</ion-title>
+    <ion-title>{{"profile_pag.title"|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -11,8 +11,8 @@
 
   <form  text-center    [formGroup]="profile_form" (ngSubmit)="update()">
     <ion-item>
-      <ion-label   color="primary" floating>
-        Nom
+      <ion-label   color="primary" floating translate>
+        register_pag.name
       </ion-label>
       <ion-input clearInput  formControlName="nom_prenom"></ion-input>
     </ion-item>
@@ -21,14 +21,15 @@
          *ngIf="profile_form.controls.nom_prenom.errors.required"
          color="danger"
          text-left
+         translate
       >
-        le nom est requit
+        register_pag.name_required
       </p>
     </div>
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Telephone
+      <ion-label   color="primary" floating translate>
+        register_pag.tel
       </ion-label>
       <ion-input clearInput  formControlName="num_tel"></ion-input>
     </ion-item>
@@ -37,22 +38,27 @@
          *ngIf="profile_form.controls.num_tel.errors.required"
          color="danger"
          text-left
+         translate
       >
-        le numero de telephone est requit
+        register_pag.tel_required
       </p>
       <p ion-text
          *ngIf="profile_form.controls.num_tel.errors.minlength"
          color="danger"
          text-left
+         translate
+         translate-value="{
+             val : (register_form.controls.tel.errors.minlength.requiredLength - register_form.controls.tel.errors.minlength.actualLength)
+           }"
       >
-        longueur min 9 , manque : {{ profile_form.controls.num_tel.errors.minlength.requiredLength - profile_form.controls.num_tel.errors.minlength.actualLength }}
+        register_pag.tel_length
       </p>
 
     </div>
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Email
+      <ion-label   color="primary" floating translate>
+        register_pag.email
       </ion-label>
       <ion-input type="email" clearInput  formControlName="email"></ion-input>
     </ion-item>
@@ -61,23 +67,25 @@
          *ngIf="profile_form.controls.email.errors.required"
          color="danger"
          text-left
+         translate
       >
-        l email est requise
+        register_pag.email_required
       </p>
       <p ion-text
          *ngIf="profile_form.controls.email.errors.email"
          color="danger"
          text-left
+         translate
       >
-        adresse email valide attendue !
+        register_pag.email_invalid
       </p>
 
     </div>
 
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Ville
+      <ion-label   color="primary" floating translate>
+        register_pag.town
       </ion-label>
       <ion-input clearInput  formControlName="ville"></ion-input>
     </ion-item>
@@ -86,15 +94,16 @@
          *ngIf="profile_form.controls.ville.errors.required"
          color="danger"
          text-left
+         translate
       >
-        la ville est requise
+        register_pag.town_required
       </p>
     </div>
 
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Mot de passe
+      <ion-label   color="primary" floating translate>
+        register_pag.password
       </ion-label>
       <ion-input type="password" clearInput  formControlName="mot_de_pass"></ion-input>
     </ion-item>
@@ -103,23 +112,28 @@
          *ngIf="profile_form.controls.mot_de_pass.errors.required"
          color="danger"
          text-left
+         translate
       >
-        l'email ou le telephone est requit
+        register_pag.password_required
       </p>
       <p ion-text
          *ngIf="profile_form.controls.mot_de_pass.errors.minlength"
          color="danger"
          text-left
+         translate
+         translate-values="{
+            val: (register_form.controls.mot_de_pass.errors.minlength.requiredLength - register_form.controls.mot_de_pass.errors.minlength.actualLength )
+           }"
       >
-        longuer min 8 , manque : {{ profile_form.controls.mot_de_pass.errors.minlength.mot_de_pass - profile_form.controls.mot_de_pass.errors.minlength.actualLength }}
+        register_pag.password_min
       </p>
 
     </div>
 
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Confirmer le mot de passe
+      <ion-label   color="primary" floating translate>
+        register_pag.confirm_password
       </ion-label>
       <ion-input type="password" clearInput  formControlName="mot_de_pass_confirm"></ion-input>
     </ion-item>
@@ -132,13 +146,14 @@
          *ngIf="profile_form.controls.mot_de_pass_confirm.errors.MatchPassword"
          color="danger"
          text-left
+         translate
       >
-        la confirmation du mot de passe ne correspond pas
+        register_pag.confirmed_error
       </p>
 
     </div>
 
-    <button ion-button block [disabled]="!profile_form.valid">Modifier</button>
+    <button ion-button block [disabled]="!profile_form.valid">{{"profile_pag.edit" | translate}}</button>
   </form>
 
 </ion-content>

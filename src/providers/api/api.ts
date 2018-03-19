@@ -4,6 +4,7 @@ import {AuthenticatedUser} from "../../models/user";
 import {UserProvider} from "../user/user";
 import {Transaction} from "../../models/transaction";
 import {Carte} from "../../models/carte";
+import {RequestOptions} from "@angular/http";
 
 /*
   Generated class for the this provider.
@@ -87,16 +88,20 @@ export class ApiProvider {
    * @param body
    * @returns {Promise<>}
    */
-  postRequest(url: string, body: Object, auth: boolean = true) {
+  postRequest(url: string, body: {login?:string,cle_de_session?:string}, auth: boolean = true) {
 
 
-    if (auth) {
+    /*if (auth) {
       body = this.formatBody(body);
-    }
+    }*/
+    const requestOptions = {
+      params: new HttpParams().set("login",body.login).set("cle_de_session",body.cle_de_session)
+    };
 
     return new Promise((resolve, reject) => {
 
-      this.http.post<BackResp>(this.BASE_URL + url, body)
+
+      this.http.post<BackResp>(this.BASE_URL + url, body,requestOptions)
         .subscribe(res => {
           console.log(res)
           if(res.code=="200"){

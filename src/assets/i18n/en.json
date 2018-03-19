@@ -1,0 +1,79 @@
+{
+  "loading":{
+    "message":"please wait..."
+  },
+  "login_pag":{
+    "welcome" : "Welcome !",
+    "login" : "Email or Phone number",
+    "login_required" : "Email or phone number is required",
+    "password" : "Password",
+    "password_required" : "password is required",
+    "passwordreset" : "Forgotten password ?",
+    "connection" : "Connection",
+    "signup" : "Create an account",
+    "online" : "you are online",
+    "invalid_params" : "Paramètres incorrects",
+    "bad_credentials" : "invalid login or password"
+  },
+  "register_pag":{
+    "title":"Create an account !",
+    "name":"Name",
+    "name_required":"name is required",
+    "tel":"Phone number",
+    "tel_required":"phone number is required",
+    "tel_length":"phone number min length is 9 , remain : {val}",
+    "email":"Email",
+    "email_required":"email is required",
+    "email_invalid":"email adress invalid !",
+    "town":"Town",
+    "town_required":"town is required",
+    "password":"Password",
+    "password_required":"password is required",
+    "password_min":"password min length is 4 , manque : {val}",
+    "confirm_password":"Confirm Password",
+    "confirmed_error":"the confirmation does not match the password",
+    "create":"Create",
+    "login":"Already have an account ? signin",
+    "account_create": "account sucessfuly created"
+
+  },
+  "password_reset_pag":{
+    "title":"Password forgotten !",
+    "login":"Email or phone number",
+    "login_required":"the login is required",
+    "reset_lab":"Reset",
+    "code":"Enter code",
+    "code_required":"code is required",
+    "send":"Send",
+    "reset_send":"Reset code send !",
+    "reset":"Password reset!"
+  },
+  "history_pag":{},
+  "balance_pag":{
+    "title":"Balance",
+    "header":"Your balance is :",
+    "currency":"XAF"
+  },
+  "client_pag":{},
+  "contact_pag":{
+    "title":"Contact Us",
+    "header1":"Find your property (apartment, house, land) for sale or for rent from thousands of listings.",
+    "adress":"Akwa, Street Bebey Eyidi, Douala-Cameroun",
+    "message":"Your message",
+    "send":"Send",
+    "msg_send":"message sent !"
+  },
+  "profile_pag":{
+    "title":"Edit your profile",
+    "edit":"Edit",
+    "updated":"Profile updated!"
+  },
+  "menu_pag":{
+    "history":"Histories",
+    "discount":"Discount",
+    "clients":"Clients",
+    "profile":"Profile",
+    "contact":"Contact us",
+    "deconnexion":"Deconnection"
+  }
+}

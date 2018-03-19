@@ -4,7 +4,7 @@ import {LoginPage} from "../login/login";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ToastProvider} from "../../providers/toast/toast";
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the PasswordResetPage page.
  *
@@ -25,7 +25,8 @@ export class PasswordResetPage {
   public next: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
-              private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider) {
+              private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider,
+              private translate: TranslateService,) {
     // Define FormGroup object using Angular's FormBuilder
     this.request_form = this._FB.group({
       'login': ['', Validators.required],
@@ -50,7 +51,10 @@ export class PasswordResetPage {
     this._AUTH.request_reset(data)
       .then((auth : any) =>
       {
-        this.toast.success("Code de renitialisation envoye !")
+
+        this.translate.get("password_reset_pag.reset_send").subscribe(translated=>{
+          this.toast.success(translated);
+        });
         this.next= true;
       })
       .catch((error : any) =>
@@ -71,7 +75,10 @@ export class PasswordResetPage {
     this._AUTH.reset(data)
       .then((auth : any) =>
       {
-        this.toast.success("Mot de passe reinitialise")
+
+        this.translate.get("password_reset_pag.reset").subscribe(translated=>{
+          this.toast.success(translated);
+        });
         this.navCtrl.setRoot(LoginPage);
       })
       .catch((error : any) =>

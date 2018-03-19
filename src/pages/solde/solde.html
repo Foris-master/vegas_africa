@@ -3,14 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Solde</ion-title>
+    <ion-title>{{"balance_pag.title" |translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
     <div text-center class="zone">
-      <h2 ion-text color="primary">Votre solde est de :</h2>
+      <h2 ion-text color="primary">{{"balance_pag.header" | translate}}</h2>
       <ion-row>
         <ion-col col-2></ion-col>
 
@@ -21,8 +21,8 @@
             <p >
               {{discount}}
             </p>
-            <p>
-              FCFA
+            <p translate>
+              balance_pag.currency
             </p>
           </div>
         </ion-col>

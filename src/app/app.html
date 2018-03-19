@@ -9,8 +9,14 @@
          <div class="menu-info">
            <span>{{user.nom_prenom}}</span>
            <br>
-           <br>
+
            <span>{{user.email}}</span>
+
+           <ion-item class="lang">
+             <ion-label color="primary" *ngIf="isfrench"> Francais</ion-label>
+             <ion-label *ngIf="!isfrench"> English</ion-label>
+             <ion-toggle [(ngModel)]="isfrench"  (ngModelChange)="changeLanguage($event)"  ></ion-toggle>
+           </ion-item>
          </div>
         </ion-col>
       </ion-row>
@@ -20,8 +26,9 @@
   <ion-content class="menu-cont" >
     <ion-list>
       <button  menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)"  >
-        {{p.title}}
+        {{("menu_pag."+p.title) | translate}}
         <ion-icon name="{{p.icon}}"></ion-icon>
+
       </button>
     </ion-list>
   </ion-content>

@@ -6,7 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidation} from "../../validations/password_confirm";
 import {ApiProvider} from "../../providers/api/api";
 import {ToastProvider} from "../../providers/toast/toast";
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -25,7 +25,7 @@ export class ProfilePage {
   public profile_form: FormGroup;
   public login : string;
   public cle_de_session : string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _FB : FormBuilder,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _FB : FormBuilder, private translate: TranslateService,
               public auth: AuthProvider, public api : ApiProvider,private  toast: ToastProvider) {
     this.user= AuthenticatedUser.GetNewInstance();
     this.profile_form = this._FB.group({
@@ -68,7 +68,9 @@ export class ProfilePage {
     }
     this.api.postRequest('modification',d).then((data)=>{
       console.log(data)
-      this.toast.success('profile mis a jour!')
+      this.translate.get("profile_pag.updated").subscribe(translated=>{
+        this.toast.success(translated);
+      });
       if(k){
         this.profile_form.controls['mot_de_pass'].setValue(null);
         this.profile_form.controls['mot_de_pass_confirm'].setValue(null);

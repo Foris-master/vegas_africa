@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ApiProvider} from "../../providers/api/api";
 import {ToastProvider} from "../../providers/toast/toast";
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the ContactsPage page.
  *
@@ -20,21 +20,34 @@ import {ToastProvider} from "../../providers/toast/toast";
 export class ContactsPage {
 
   public contact_form: FormGroup;
+  public login : string ;
+  public cle_de_session : string ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private  toast: ToastProvider,
-              private _FB : FormBuilder,private _AUTH : AuthProvider, public api : ApiProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private  toast: ToastProvider,  private translate: TranslateService,
+              private _FB : FormBuilder,private _AUTH : AuthProvider, public api : ApiProvider,private  Auth : AuthProvider) {
     this.contact_form = this._FB.group({
       'message'        : ['',Validators.compose([Validators.required,Validators.maxLength(160)])],
     });
+    this.Auth.getAuthUser().then((u)=>{
+      console.log(u);
+      this.login=u.email;
+      this.cle_de_session= u.cle_de_session;
+    })
   }
 
   send(){
 
-    let b : any  = this.contact_form.controls['message'].value;
+    let p = {
+      login: this.login,
+      cle_de_session: this.cle_de_session,
+      message:this.contact_form.controls['message'].value
+    };
 
-    this.api.postRequest('notification',{message:b}).then((data)=>{
+    this.api.postRequest('notification',p).then((data)=>{
       console.log(data)
-      this.toast.success('message envoye !')
+      this.translate.get("contact_pag.msg_send").subscribe(translated=>{
+        this.toast.success(translated);
+      });
       this.contact_form.controls['message'].setValue('');
     },(err)=>{
       this.toast.error(err.message)

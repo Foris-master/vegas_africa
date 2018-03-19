@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import {LoadingController} from "ionic-angular";
 import {UserProvider} from "../providers/user/user";
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -12,8 +12,16 @@ export class LoadingInterceptor implements HttpInterceptor {
   public loading: any ; /**/
 
   public  isView: boolean=false;
+  public  translate: TranslateService;
+  public  lmsg : string;
 
-  constructor(public loadingCtrl: LoadingController,public  userService : UserProvider) {
+  constructor(public loadingCtrl: LoadingController,public  userService : UserProvider,private injector:Injector) {
+
+    setTimeout(() => {
+       this.translate=injector.get(TranslateService);
+
+    })
+
     this.userService.getOnStorage();
   }
 
@@ -23,7 +31,13 @@ export class LoadingInterceptor implements HttpInterceptor {
    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let lprom = null;
      if(!this.isView){
+       if(this.translate){
+         this.translate.get("loading.message").subscribe(translated=>{
+           this.lmsg=translated;
+         });
+       }
        lprom = this.show(!(req.params.get("show_loading")=='false'));
+
      }
      /*if(req.method=='GET'){
        let p = req.params.set("login",this.userService.user.email)
@@ -67,7 +81,7 @@ export class LoadingInterceptor implements HttpInterceptor {
   show(b) {
     if(!this.loading&&b){
       this.loading = this.loadingCtrl.create({
-        content: "veuillez patientez...",
+        content: this.lmsg,
         spinner: 'dots'
       });
      return this.loading.present();

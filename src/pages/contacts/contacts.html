@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Nous contacter</ion-title>
+    <ion-title>{{"contact_pag.title"| translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,13 +12,13 @@
   <div ion-text color="primary" padding>
     <h5 ion-text text-center>Vegas Africa</h5>
     <hr>
-    <p ion-text text-justify>
-      Trouvez votre bien immobilier (appartement, maison, terrain) à vendre ou à louer parmi des milliers d'annonces.
+    <p ion-text text-justify translate>
+      contact_pag.header1
     </p>
     <hr>
 
-    <div>
-      Akwa, Rue Bebey Eyidi, Douala-Cameroun
+    <div translate>
+      contact_pag.adress
     </div>
     <div>
       (+237) 6 97 15 28 87
@@ -30,8 +30,8 @@
 
   <form  text-center padding   [formGroup]="contact_form" (ngSubmit)="send()">
     <ion-item>
-      <ion-label  for="msg" color="primary" floating>
-        Votre Message
+      <ion-label  for="msg" color="primary" floating translate>
+        contact_pag.message
       </ion-label>
       <ion-textarea name="msg" id="msg" cols="30" rows="3" formControlName="message" clearInput>
 
@@ -42,7 +42,7 @@
       <ion-icon text-right name="refresh" (click)="clear()" isActive="true"> </ion-icon>
     </div>
     <br>
-    <button ion-button block [disabled]="!contact_form.valid">Envoyer</button>
+    <button ion-button block [disabled]="!contact_form.valid"> {{"contact_pag.send" | translate}}</button>
   </form>
 
 </ion-content>

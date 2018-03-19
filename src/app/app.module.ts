@@ -23,8 +23,12 @@ import {IonicStorageModule} from "@ionic/Storage";
 import {httpInterceptorProviders} from "../interceptors/index";
 import {CartesPage} from "../pages/cartes/cartes";
 import {ClientModalPage} from "../pages/client-modal/client-modal";
-
-
+import { TranslateModule ,TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateService } from '@ngx-translate/core';
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, "../assets/i18n/", ".json");
+}
 
 
 @NgModule({
@@ -46,6 +50,13 @@ import {ClientModalPage} from "../pages/client-modal/client-modal";
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
 
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'sqlite', 'websql']
@@ -75,7 +86,8 @@ import {ClientModalPage} from "../pages/client-modal/client-modal";
         AuthProvider,
     ToastProvider,
     ApiProvider,
-    UserProvider
+    UserProvider,
+    TranslateService
   ]
 
 })

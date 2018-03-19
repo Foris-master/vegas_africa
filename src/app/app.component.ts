@@ -12,7 +12,7 @@ import {UserProvider} from "../providers/user/user";
 import {AuthProvider} from "../providers/auth/auth";
 import {AuthenticatedUser} from "../models/user";
 import {CartesPage} from "../pages/cartes/cartes";
-import {RegisterPage} from "../pages/register/register";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,21 +23,31 @@ export class MyApp {
   rootPage: any = LoginPage;
   public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
   pages: Array<{title: string, component: any,icon?: string}>;
+  public  isfrench : boolean = true;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-              public userStorage: UserProvider,public auth: AuthProvider) {
+              public userStorage: UserProvider,public auth: AuthProvider,private translate: TranslateService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Historique', component: HistoryPage , icon: "home"},
-      { title: 'Solde', component: SoldePage,icon: "card" },
-      { title: 'Clients', component: CartesPage,icon: "people" },
-      { title: 'Profile', component: ProfilePage,icon: "person" },
-      { title: 'Contacter', component: ContactsPage,icon: "help-circle" },
-      { title: 'Deconnexion', component: LoginPage,icon: "log-out" },
+      { title: 'history', component: HistoryPage , icon: "archive"},
+      { title: 'discount', component: SoldePage,icon: "card" },
+      { title: 'clients', component: CartesPage,icon: "people" },
+      { title: 'profile', component: ProfilePage,icon: "person" },
+      { title: 'contact', component: ContactsPage,icon: "help-circle" },
+      { title: 'deconnexion', component: LoginPage,icon: "log-out" },
     ];
+    platform.ready().then(() => {
+      translate.addLangs(["fr", "en"]);
+      translate.setDefaultLang('fr');
 
+      let browserLang = translate.getBrowserLang();
+      let bl = browserLang.match(/fr|en/);
+      this.isfrench= browserLang.split("en").length <= 0;
+
+      translate.use(bl ? browserLang : 'fr');
+    });
     this.auth.getAuthUser().then((user)=>{
       this.user= user;
     });
@@ -50,13 +60,19 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
     });
+  }
+
+  changeLanguage(){
+    let l = this.isfrench ? 'fr' : 'en';
+    this.translate.use(l);
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if(page.title=="Deconnexion"){
+    if(page.title=="deconnexion"){
       this.userStorage.deleteOnStorage().then(()=>{
         this.nav.setRoot(page.component);
       },(err)=>{

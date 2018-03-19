@@ -1,0 +1,78 @@
+{
+  "loading":{
+    "message":"veuillez patientez..."
+  },
+  "login_pag":{
+    "welcome" : "Bienvenue !",
+    "login" : "Email ou Telephone",
+    "login_required" : "l'email ou le telephone est requit",
+    "password" : "Mot de passe",
+    "password_required" : "le mot de passe est requit",
+    "passwordreset" : "Mot de passe oublie ?",
+    "connection" : "Connexion",
+    "signup" : "Creer un compte",
+    "online" : "vous etes en ligne",
+    "invalid_params" : "Paramètres incorrects",
+    "bad_credentials" : "login et/ou mot de passe incorrect"
+  },
+  "register_pag":{
+    "title":"Creer un compte !",
+    "name":"Nom",
+    "name_required":"le nom est requit",
+    "tel":"Telephone",
+    "tel_required":"le numero de telephone est requit",
+    "tel_length":"longueur min 9 , manque : {val}",
+    "email":"Email",
+    "email_required":"l email est requise",
+    "email_invalid":"adresse email valide attendue !",
+    "town":"Ville",
+    "town_required":"la ville est requise",
+    "password":"Mot de passe",
+    "password_required":"le mot de passe est requit",
+    "password_min":"longuer min 4 , manque : {val}",
+    "confirm_password":"Confirmer le mot de passe",
+    "confirmed_error":"la confirmation du mot de passe ne correspond pas",
+    "create":"Creer",
+    "login":"Vous avez deja un compte? Se connecter",
+    "account_create": "compte cree avec sucess"
+  },
+  "password_reset_pag":{
+    "title":"Mot de pass oublie !",
+    "login":"Email ou Telephone",
+    "login_required":"le login est requit ",
+    "reset_lab":"Reinitialiser",
+    "code":"Entrez le code",
+    "code_required":"le code est requit",
+    "send":"Envoyez",
+    "reset_send":"Code de renitialisation envoye !",
+    "reset":"Mot de passe reinitialise !"
+  },
+  "history_pag":{},
+  "balance_pag":{
+    "title":"Solde",
+    "header":"Votre solde est de :",
+    "currency":"FCFA"
+  },
+  "client_pag":{},
+  "contact_pag":{
+    "title":"Nous contacter",
+    "header1":"Trouvez votre bien immobilier (appartement, maison, terrain) à vendre ou à louer parmi des milliers d'annonces.",
+    "adress":"Akwa, Rue Bebey Eyidi, Douala-Cameroun",
+    "message":"Votre Message",
+    "send":"Envoyer",
+    "msg_send":"message envoye !"
+  },
+  "profile_pag":{
+    "title":"Editer votre Profile",
+    "edit":"Modifier",
+    "updated":"profile mis a jour!"
+  },
+  "menu_pag":{
+      "history":"Historiques",
+      "discount":"Solde",
+      "clients":"Clients",
+      "profile":"Profile",
+      "contact":"Nous contacter",
+      "deconnexion":"Deconnexion"
+  }
+}

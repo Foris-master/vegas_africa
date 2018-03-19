@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastProvider} from "../../providers/toast/toast";
 import {HistoryPage} from "../history/history";
 import {PasswordValidation} from "../../validations/password_confirm";
-
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Generated class for the RegisterPage page.
@@ -23,13 +23,14 @@ export class RegisterPage {
   public register_form: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
+              private translate: TranslateService,
               private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider) {
     this.register_form = this._FB.group({
       'name'        : ['', Validators.compose([Validators.required])],
       'tel'     : ['', Validators.compose([Validators.required,Validators.minLength(9)])],
       'email'     : ['',Validators.compose([ Validators.required,Validators.email])],
       'town'     : ['', Validators.compose([Validators.required])],
-      'mot_de_pass'     : ['', Validators.compose([Validators.required])],
+      'mot_de_pass'     : ['', Validators.compose([Validators.required,Validators.minLength(4)])],
       'mot_de_pass_confirm'  : ["", Validators.compose([]) ],
     },{
       validator: PasswordValidation.MatchPassword // your validation method
@@ -53,7 +54,10 @@ export class RegisterPage {
     this._AUTH.register(d)
       .then((auth : any) =>
       {
-        this.toast.success("compte cree avec sucess");
+        this.translate.get("register_pag.account_create").subscribe(translated=>{
+          this.toast.success(translated);
+        });
+
         this.navCtrl.setRoot(HistoryPage);
       })
       .catch((error : any) =>
