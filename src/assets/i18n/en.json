@@ -54,11 +54,23 @@
     "header":"Your balance is :",
     "currency":"XAF"
   },
-  "client_pag":{},
+  "client_pag":{
+    "title" : "Clients",
+    "card" : "N<sup>o</sup> Card {{num_card}} ",
+    "adress" : "Adress : {{adress}}",
+    "town" : "Town : {{town}}",
+    "quarter" : " Quarter :  {{quarter}}",
+    "phone" : " Phone :  {{phone}}",
+    "edit" : "Edit",
+    "delete" : "Delete",
+    "no_more" : "No more !",
+    "loading_message": "Fetching data..."
+  },
   "contact_pag":{
     "title":"Contact Us",
     "header1":"Find your property (apartment, house, land) for sale or for rent from thousands of listings.",
     "adress":"Akwa, Street Bebey Eyidi, Douala-Cameroun",
+    "service":"Service",
     "message":"Your message",
     "send":"Send",
     "msg_send":"message sent !"

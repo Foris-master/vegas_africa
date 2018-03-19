@@ -7,6 +7,7 @@ import {PasswordValidation} from "../../validations/password_confirm";
 import {ApiProvider} from "../../providers/api/api";
 import {ToastProvider} from "../../providers/toast/toast";
 import { TranslateService } from '@ngx-translate/core';
+import {UserProvider} from "../../providers/user/user";
 /**
  * Generated class for the ProfilePage page.
  *
@@ -26,7 +27,7 @@ export class ProfilePage {
   public login : string;
   public cle_de_session : string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private _FB : FormBuilder, private translate: TranslateService,
-              public auth: AuthProvider, public api : ApiProvider,private  toast: ToastProvider) {
+              public auth: AuthProvider, public api : ApiProvider,private  toast: ToastProvider,private userService: UserProvider) {
     this.user= AuthenticatedUser.GetNewInstance();
     this.profile_form = this._FB.group({
       'nom_prenom'        : ['', Validators.compose([Validators.required])],
@@ -66,8 +67,14 @@ export class ProfilePage {
     if(k){
       d["mot_de_pass"] = p;
     }
-    this.api.postRequest('modification',d).then((data)=>{
-      console.log(data)
+    this.api.postRequest('modification',d).then((dat:any)=>{
+      console.log(dat)
+
+      this.user = AuthenticatedUser.ParseFromObject(JSON.parse(dat.message));
+      this.userService.createOnStorage(this.user).then((d)=>{
+        console.log(d);
+      });
+
       this.translate.get("profile_pag.updated").subscribe(translated=>{
         this.toast.success(translated);
       });

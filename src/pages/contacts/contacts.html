@@ -30,6 +30,15 @@
 
   <form  text-center padding   [formGroup]="contact_form" (ngSubmit)="send()">
     <ion-item>
+      <ion-label   color="primary" floating translate>
+        contact_pag.service
+      </ion-label>
+      <ion-select formControlName="service">
+        <ion-option  *ngFor="let s of services" value="{{s}}">{{s}}</ion-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item>
       <ion-label  for="msg" color="primary" floating translate>
         contact_pag.message
       </ion-label>

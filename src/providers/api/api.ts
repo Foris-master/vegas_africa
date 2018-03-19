@@ -19,6 +19,7 @@ interface BackResp {
 }
 
 
+
 @Injectable()
 export class ApiProvider {
 
@@ -88,15 +89,19 @@ export class ApiProvider {
    * @param body
    * @returns {Promise<>}
    */
-  postRequest(url: string, body: {login?:string,cle_de_session?:string}, auth: boolean = true) {
+  postRequest(url: string, body: {login?:string,cle_de_session?:string,email?:string}, auth: boolean = true) {
 
 
-    /*if (auth) {
-      body = this.formatBody(body);
-    }*/
-    const requestOptions = {
-      params: new HttpParams().set("login",body.login).set("cle_de_session",body.cle_de_session)
+    let requestOptions = {
+      params: new HttpParams()
     };
+    if (auth) {
+      // body = this.formatBody(body);
+      requestOptions = {
+        params: new HttpParams().set("login",body.login).set("cle_de_session",body.cle_de_session)
+      };
+    }
+
 
     return new Promise((resolve, reject) => {
 
@@ -135,7 +140,7 @@ export class ApiProvider {
               if(url=='historique'){
                 res.message.data = Transaction.ParseFromArray(res.message.data)
               }else if(url=='lister_client_info'){
-                res.message = Carte.ParseFromArray(res.message)
+                res.message.data = Carte.ParseFromArray(res.message.data)
               }
               resolve(res);
             }else{

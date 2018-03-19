@@ -23,8 +23,9 @@ export class HistoryPage {
   public login : string ;
   public cle_de_session : string ;
   public canload : boolean = true ;
+  public sl : boolean = true ;
   public page : number = 0 ;
-  public length : number = 1 ;
+  public length : number = 5 ;
   public start : number = 0 ;
   public total : number = 100 ;
   public ph : Promise<void>;
@@ -33,7 +34,8 @@ export class HistoryPage {
       // console.log(u);
       this.login=u.email;
       this.cle_de_session= u.cle_de_session;
-      // this.doInfinite();
+      this.doInfinite();
+
     })
 
   }
@@ -52,12 +54,13 @@ export class HistoryPage {
         if(this.canload){
           this.start = this.page*this.length;
           let p = {
-            show_loading: false,
+            show_loading: this.sl,
             start:this.start,
             login: this.login,
             cle_de_session: this.cle_de_session,
             length:this.length
           };
+          this.sl= false;
           this.page++;
           this.API.getRequest('historique',p).then(
             (data: any)=>{

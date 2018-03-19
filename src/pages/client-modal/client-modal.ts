@@ -58,16 +58,16 @@ export class ClientModalPage {
   }
 
   closeModal() {
-    const data = {
+   /* const data = {
       name: 'John Doe',
       occupation: 'Milkman'
-    };
-    this.view.dismiss(data);
+    };*/
+    this.view.dismiss();
   }
 
   update(){
 
-    let d: {login? , cle_de_session?,client_info: Array<any>} = {client_info:[]};
+    let d: {login? , cle_de_session?,info_client: Array<any>} = {info_client:[]};
     d.login = this.login;
     d.cle_de_session = this.cle_de_session;
     let c = Carte.GetNewInstance();
@@ -76,15 +76,18 @@ export class ClientModalPage {
     }else {
       c.id = this.client.id
     }
+    console.log(c)
     c.num_carte =  this.carte_form.controls.num_carte.value,
     c.adresse =  this.carte_form.controls.adresse.value,
     c.telephone =  this.carte_form.controls.telephone.value,
     c.ville =  this.carte_form.controls.ville.value,
     c.quartier =  this.carte_form.controls.quartier.value,
-    d.client_info = [c]
-
-    this.API.postRequest('add_client_info',d).then((data)=>{
+    d.info_client = [c]
+    this.API.postRequest('add_client_info',d).then((data:{message?:any})=>{
       console.log(data)
+      let c = Carte.ParseFromObject(data.message[0]);
+
+      this.view.dismiss(c);
       this.toast.success('client supprime avec succes')
     },(err)=>{
       this.toast.error(err.message);
