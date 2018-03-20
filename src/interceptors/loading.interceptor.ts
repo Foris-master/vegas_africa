@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import {LoadingController} from "ionic-angular";
 import {UserProvider} from "../providers/user/user";
-import { TranslateService } from '@ngx-translate/core';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
@@ -19,10 +19,19 @@ export class LoadingInterceptor implements HttpInterceptor {
 
     setTimeout(() => {
        this.translate=injector.get(TranslateService);
-
+       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+         // do something
+         this.loadLang();
+       });
     })
 
     this.userService.getOnStorage();
+  }
+
+  loadLang(){
+    this.translate.get("loading.message").subscribe(translated=>{
+      this.lmsg=translated;
+    });
   }
 
   async getUser(){
@@ -32,9 +41,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     let lprom = null;
      if(!this.isView){
        if(this.translate){
-         this.translate.get("loading.message").subscribe(translated=>{
-           this.lmsg=translated;
-         });
+         this.loadLang();
        }
        lprom = this.show(!(req.params.get("show_loading")=='false'));
 
@@ -56,14 +63,14 @@ export class LoadingInterceptor implements HttpInterceptor {
 
     return next.handle(req).do(evt => {
       if (evt instanceof HttpResponse) {
-        console.log(lprom);
+        // console.log(lprom);
         if(lprom){
           lprom.then(()=>{
             this.hide(!(req.params.get("show_loading")=='false'));
           });
         }
-        console.log('---> status:', evt.status);
-        console.log('---> filter:', req.params.get('filter'));
+        /*console.log('---> status:', evt.status);
+        console.log('---> filter:', req.params.get('filter'));*/
       }
     },(err)=>{
       if(lprom){

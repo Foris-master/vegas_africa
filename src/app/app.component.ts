@@ -48,9 +48,12 @@ export class MyApp {
 
       translate.use(bl ? browserLang : 'fr');
     });
-    this.auth.getAuthUser().then((user)=>{
-      this.user= user;
-    });
+
+    setTimeout(() => {
+      this.auth.getAuthUser().then((user)=>{
+        this.user= user;
+      });
+    })
 
   }
 

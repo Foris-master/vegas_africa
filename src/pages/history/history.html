@@ -3,26 +3,29 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Historique</ion-title>
+    <ion-title >{{'history_pag.title' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
   <ion-content padding style="width: 100%;height: 100%;">
+    <div style="width: 100%;height: auto;">
       <ion-list *ngFor="let h of historisques">
         <ion-item-sliding>
           <ion-item>
-            <h2 text-capitalize >Client : {{h.utilisateur}}</h2>
+            <h2 text-capitalize [translate]="'history_pag.client'" [translateParams]="{user: h.utilisateur}"></h2>
             <hr>
             <div *ngIf="h.show_details">
-              Montant : {{h.montant}} FCFA
+              <span translate [translateParams]="{amount: h.montant}">history_pag.amount</span>
               <hr>
-              Solde Restant :  {{h.solde_restant}} FCFA
+              <span translate [translateParams]="{balance: h.solde_restant}">history_pag.balance</span>
               <hr>
-              Date : {{h.date_operation}}
+              <span translate [translateParams]="{type: h.type_operation}">history_pag.type</span>
+              <hr>
+              <span translate [translateParams]="{date: h.date_operation}">history_pag.date</span>
               <hr>
             </div>
-            Description :
+            <span translate>history_pag.description</span>
             <hr>
-            <p [innerHTML]="h.description"></p>
+            <p  [ngClass]="{'detail': h.show_details}" [innerHTML]="h.description"></p>
           </ion-item>
           <ion-item-options side="left">
             <button ion-button color="primary" (click)="show(h)">
@@ -31,11 +34,14 @@
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-      <ion-item *ngIf="!canload">
-        Plus d'elements
-      </ion-item>
       <ion-infinite-scroll  (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Recuperation des transactions..."></ion-infinite-scroll-content>
+        <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="lmsg"></ion-infinite-scroll-content>
       </ion-infinite-scroll>
+    </div>
+
+      <ion-item *ngIf="!canload" [translate]="'history_pag.no_more'">
+
+      </ion-item>
+
   </ion-content>
 

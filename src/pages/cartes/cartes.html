@@ -6,48 +6,49 @@
     <ion-title>{{"client_pag.title" | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding style="width: 100%;height: 100%;">
-  <ion-list *ngFor="let c of clients" >
-    <ion-item-sliding>
-      <ion-item>
-        <h5 text-capitalize  [innerHTML]="'client_pag.card' | translate:{num_card: c.num_carte}" ></h5>
-        <hr>
-        <h5 text-capitalize [translate]="'client_pag.adress'" [translateParams]="{adress: c.adresse}" ></h5>
-        <hr>
-        <div *ngIf="c.show_details">
-          <span translate [translateParams]="{town: c.ville}">client_pag.town</span>
-          <hr>
-          <span translate [translateParams]="{quarter: c.quartier}">client_pag.quarter</span>
-          <hr>
-          <span translate [translateParams]="{phone: c.telephone}">client_pag.phone</span>
-          <hr>
-        </div>
-      </ion-item>
-      <ion-item-options side="left">
-        <button ion-button color="primary" (click)="show(c)">
-          <ion-icon name="more"></ion-icon>
-          Detail
-        </button>
-        <button ion-button color="light" (click)="edit(c)">
-          <ion-icon name="create"></ion-icon>
-          <span translate>client_pag.edit</span>
-        </button>
-      </ion-item-options>
-      <ion-item-options side="right">
-        <button ion-button color="danger" (click)="del(c)">
-          <ion-icon name="close"></ion-icon>
-          <span translate>client_pag.delete</span>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  <ion-item *ngIf="!canload" translate>
-    client_pag.no_more
-  </ion-item>
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
+<ion-content padding >
+  <div style="width: 100%;height: 101%;" >
+      <ion-list *ngFor="let c of clients" >
+        <ion-item-sliding>
+          <ion-item>
+            <h5 text-capitalize  [innerHTML]="'client_pag.card' | translate:{num_card: c.num_carte}" ></h5>
+            <hr>
+            <h5 text-capitalize [translate]="'client_pag.adress'" [translateParams]="{adress: c.adresse}" ></h5>
+            <hr>
+            <div *ngIf="c.show_details">
+              <span translate [translateParams]="{town: c.ville}">client_pag.town</span>
+              <hr>
+              <span translate [translateParams]="{quarter: c.quartier}">client_pag.quarter</span>
+              <hr>
+              <span translate [translateParams]="{phone: c.telephone}">client_pag.phone</span>
+              <hr>
+            </div>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="primary" (click)="show(c)">
+              <ion-icon name="more"></ion-icon>
+              Detail
+            </button>
+            <button ion-button color="light" (click)="edit(c)">
+              <ion-icon name="create"></ion-icon>
+              <span translate>client_pag.edit</span>
+            </button>
+          </ion-item-options>
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="del(c)">
+              <ion-icon name="close"></ion-icon>
+              <span translate>client_pag.delete</span>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      <ion-item *ngIf="!canload" >{{'client_pag.no_more'|translate}}</ion-item>
+  </div>
+  <ion-infinite-scroll  style="position: fixed;" (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="canload" >
     <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="lmsg"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <ion-fab right bottom (click)="edit()">
+
+  <ion-fab right bottom  (click)="edit()">
     <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>

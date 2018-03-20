@@ -4,7 +4,7 @@ import {ApiProvider} from "../../providers/api/api";
 import {AuthProvider} from "../../providers/auth/auth";
 import {Transaction} from "../../models/transaction";
 import {AuthenticatedUser} from "../../models/user";
-
+import { TranslateService } from '@ngx-translate/core';
 /**
  * Generated class for the HistoryPage page.
  *
@@ -25,11 +25,16 @@ export class HistoryPage {
   public canload : boolean = true ;
   public sl : boolean = true ;
   public page : number = 0 ;
-  public length : number = 5 ;
+  public length : number = 4 ;
   public start : number = 0 ;
   public total : number = 100 ;
+  public lmsg : string;
   public ph : Promise<void>;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private API: ApiProvider,private  Auth : AuthProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private API: ApiProvider,
+              private translate: TranslateService,private  Auth : AuthProvider) {
+    this.translate.get("history_pag.loading_message").subscribe(translated=>{
+      this.lmsg=translated;
+    });
     this.ph= this.Auth.getAuthUser().then((u)=>{
       // console.log(u);
       this.login=u.email;

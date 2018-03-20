@@ -15,4 +15,8 @@ page-history {
   hr{
     background-color: map-get($colors, primary) ;
   }
+
+  .detail{
+    white-space: normal;
+  }
 }

@@ -5,7 +5,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {Carte} from "../../models/carte";
 import {ToastProvider} from "../../providers/toast/toast";
 import {ClientModalPage} from "../client-modal/client-modal";
-import { TranslateService } from '@ngx-translate/core';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 /**
  * Generated class for the CartesPage page.
  *
@@ -30,13 +30,18 @@ export class CartesPage {
   public total : number = 100 ;
   public login : string ;
   public cle_de_session : string ;
+  public added_card : number=0;
   public profileModal: Modal;
+  public lang: {mtitle:string,mmsg:string,mcancel:string,mcancelm:string,mdel:string};
   public lmsg : string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,
               private API: ApiProvider,private  Auth : AuthProvider,private  toast: ToastProvider,
               private translate: TranslateService,public modalCtrl: ModalController) {
-    this.translate.get("client_pag.loading_message").subscribe(translated=>{
-      this.lmsg=translated;
+
+    this.loadLang();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      // do something
+      this.loadLang();
     });
 
     this.Auth.getAuthUser().then((u)=>{
@@ -47,6 +52,26 @@ export class CartesPage {
     })
   }
 
+  loadLang(){
+    this.translate.get([
+      "client_pag.loading_message",
+      "client_pag.confirm_title",
+      "client_pag.confirm_message",
+      "client_pag.confirm_cancel",
+      "client_pag.confirm_cancel_message",
+      "client_pag.confirm_delete",
+    ]).subscribe(translated=>{
+      // console.log(translated);
+      this.lmsg=translated["client_pag.loading_message"];
+      this.lang={
+        mtitle : translated["client_pag.confirm_title"],
+        mmsg : translated["client_pag.confirm_message"],
+        mcancel : translated["client_pag.confirm_cancel"],
+        mcancelm : translated["client_pag.confirm_cancel_message"],
+        mdel : translated["client_pag.confirm_delete"],
+      };
+    });
+  }
   show(h:Carte){
     h.show_details = !h.show_details;
   }
@@ -54,7 +79,7 @@ export class CartesPage {
     return new Promise((resolve) => {
       this.canload = this.page<this.total;
       if(this.canload||true){
-        this.start = this.page*this.length;
+        this.start = this.page*this.length+this.added_card;
         let p = {
           show_loading: this.sl,
           start:this.start,
@@ -66,7 +91,7 @@ export class CartesPage {
         this.sl= false;
         this.API.getRequest('lister_client_info',p).then(
           (data: any)=>{
-            console.log(data);
+            // console.log(data);
             this.total = Math.ceil(data.message.recordsFiltered/this.length);
             this.clients = this.clients.concat(data.message.data);
             // console.log(this.total,this.page)
@@ -97,29 +122,35 @@ export class CartesPage {
   del(c: Carte){
 
     let confirm = this.alertCtrl.create({
-      title: 'Supprimer le client?',
-      message: 'Vous allez supprimer le client de carte :'+c.num_carte,
+      title: this.lang.mtitle,
+      message: this.lang.mmsg+c.num_carte,
       buttons: [
         {
-          text: 'Annuler',
+          text: this.lang.mcancel,
           handler: () => {
-            console.log('Disagree clicked');
-            this.toast.warning('Suppression annule !')
+            // console.log('Disagree clicked');
+            this.toast.warning(this.lang.mcancelm)
 
           }
         },
         {
           text: 'Ok',
           handler: () => {
-            console.log('Agree clicked');
+            // console.log('Agree clicked');
             let d = {
               login : this.login,
               cle_de_session : this.cle_de_session,
               ids_info_client : [c.id]
             }
             this.API.postRequest('delete_client_info',d).then((data)=>{
-              console.log(data)
-              this.toast.success('client supprime avec succes')
+              // console.log(data)
+              let updateItem = this.clients.find(this.findIndexToUpdate, c.id);
+              let index = this.clients.indexOf(updateItem);
+              this.clients.splice(index, 1);
+              this.added_card--;
+              this.toast.success(this.lang.mdel)
+            },(err)=>{
+              this.toast.error(err.message)
             });
           }
         }
@@ -131,9 +162,10 @@ export class CartesPage {
   presentModal(c?: Carte) {
     this.profileModal = this.modalCtrl.create(ClientModalPage, { client: c ,login: this.login, cle_de_session:this.cle_de_session});
     this.profileModal.onDidDismiss(data => {
-      console.log(data);
+      // console.log(data);
       if(data != undefined){
         if(this.iscreation){
+          this.added_card++;
           this.clients.unshift(data);
         }else{
 
