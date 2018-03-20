@@ -21,7 +21,7 @@
     "name_required":"le nom est requit",
     "tel":"Telephone",
     "tel_required":"le numero de telephone est requit",
-    "tel_length":"longueur min 9 , manque : {val}",
+    "tel_length":"longueur min 9 , manque : {{val}}",
     "email":"Email",
     "email_required":"l email est requise",
     "email_invalid":"adresse email valide attendue !",
@@ -29,7 +29,7 @@
     "town_required":"la ville est requise",
     "password":"Mot de passe",
     "password_required":"le mot de passe est requit",
-    "password_min":"longuer min 4 , manque : {val}",
+    "password_min":"longuer min 4 , manque : {{val}}",
     "confirm_password":"Confirmer le mot de passe",
     "confirmed_error":"la confirmation du mot de passe ne correspond pas",
     "create":"Creer",
@@ -47,7 +47,17 @@
     "reset_send":"Code de renitialisation envoye !",
     "reset":"Mot de passe reinitialise !"
   },
-  "history_pag":{},
+  "history_pag":{
+    "title":"Historique",
+    "client":"Agent : {{user}}",
+    "amount":"Montant : {{amount}} FCFA",
+    "balance":"Solde Restant :  {{balance}} FCFA",
+    "type":"Type Operation : {{type}}",
+    "date":"Date : {{date}}",
+    "description":"Description :",
+    "no_more":"Plus d'elements",
+    "loading_message":"Recuperation des transactions..."
+  },
   "balance_pag":{
     "title":"Solde",
     "header":"Votre solde est de :",
@@ -63,7 +73,32 @@
     "edit" : "Editer",
     "delete" : "Supprimer",
     "no_more" : "Plus d'elements",
-    "loading_message": "Recuperation des transactions..."
+    "loading_message": "Recuperation des transactions...",
+    "confirm_title":"Supprimer le client?",
+    "confirm_message":"Vous allez supprimer le client de carte :",
+    "confirm_cancel":"Annuler",
+    "confirm_cancel_message":"Suppression annule !",
+    "confirm_delete":"client supprime avec succes"
+  },
+  "client_modal_pag":{
+    "etitle":"Editer le client",
+    "ctitle":"Creer un client",
+    "close":"Fermer",
+    "card":"No Carte",
+    "card_required":" le numero de carte est requit",
+    "adress":"Adresse",
+    "adress_required":"l adresse du client est requise",
+    "phone":"Telephone",
+    "phone_required":"le numero de telephone est requise",
+    "phone_length":"longueur min 9 , manque : {{ val }}",
+    "town":"Ville",
+    "town_required":"le nom de la ville est requise",
+    "quarter":"Quartier",
+    "quarter_required":"le nom du quartier est requit",
+    "create":"Creer",
+    "edit":"Modifier",
+    "create_message":"client ajoute avec succes",
+    "update_message":"client modifie avec succes"
   },
   "contact_pag":{
     "title":"Nous contacter",
@@ -82,7 +117,7 @@
   "menu_pag":{
       "history":"Historiques",
       "discount":"Solde",
-      "clients":"Clients",
+      "clients":"Supplément",
       "profile":"Profile",
       "contact":"Nous contacter",
       "deconnexion":"Deconnexion"

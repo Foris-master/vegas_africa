@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApiProvider} from "../../providers/api/api";
 import {ToastProvider} from "../../providers/toast/toast";
 import {Carte} from "../../models/carte";
+import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 
 /**
  * Generated class for the ClientModalPage page.
@@ -24,9 +25,10 @@ export class ClientModalPage {
   public  cle_de_session : string ;
   public  iscreation : boolean ;
   public carte_form: FormGroup;
+  public lang : {create:string,update:string};
 
   constructor(private navParams: NavParams, private view: ViewController, private _FB : FormBuilder,
-              private  toast: ToastProvider, private API: ApiProvider) {
+              private  toast: ToastProvider, private API: ApiProvider, private translate: TranslateService,) {
     this.carte_form = this._FB.group({
       'num_carte'        : ['', Validators.compose([Validators.required])],
       'telephone'     : ['', Validators.compose([Validators.required,Validators.minLength(9)])],
@@ -35,8 +37,25 @@ export class ClientModalPage {
       'quartier'     : ['', Validators.compose([Validators.required])],
 
     });
+
+    this.loadLang();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      // do something
+      this.loadLang();
+    });
   }
 
+  loadLang(){
+    this.translate.get([
+      "client_modal_pag.create_message",
+      "client_modal_pag.update_message",
+    ]).subscribe(translated=>{
+      this.lang={
+        create : translated["client_pag.create_message"],
+        update : translated["client_pag.update_message"],
+      };
+    });
+  }
 
   ionViewWillLoad() {
     console.log(this);
@@ -88,7 +107,11 @@ export class ClientModalPage {
       let c = Carte.ParseFromObject(data.message[0]);
 
       this.view.dismiss(c);
-      this.toast.success('client supprime avec succes')
+      if(this.iscreation){
+        this.toast.success(this.lang.create)
+      }else {
+        this.toast.success(this.lang.update)
+      }
     },(err)=>{
       this.toast.error(err.message);
     });

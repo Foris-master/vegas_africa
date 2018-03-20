@@ -1,10 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="!iscreation">Editer le client</ion-title>
-    <ion-title *ngIf="iscreation">Creer un client</ion-title>
+    <ion-title *ngIf="!iscreation">{{'client_modal_pag.etitle'| translate}}</ion-title>
+    <ion-title *ngIf="iscreation">{{'client_modal_pag.ctitle'| translate}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="closeModal()">Close</button>
+      <button ion-button (click)="closeModal()" >{{'client_modal_pag.close'|translate}}</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -14,8 +14,8 @@
 <ion-content padding>
   <form  text-center    [formGroup]="carte_form" (ngSubmit)="update()">
     <ion-item>
-      <ion-label   color="primary" floating>
-        No Carte
+      <ion-label   color="primary" floating translate>
+        client_modal_pag.card
       </ion-label>
       <ion-input clearInput  formControlName="num_carte"></ion-input>
     </ion-item>
@@ -24,14 +24,14 @@
          *ngIf="carte_form.controls.num_carte.errors.required"
          color="danger"
          text-left
-      >
-        le numero de carte est requit
+         translate>
+        client_modal_pag.card_required
       </p>
     </div>
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Adresse
+      <ion-label   color="primary" floating translate>
+        client_modal_pag.adress
       </ion-label>
       <ion-input clearInput  formControlName="adresse"></ion-input>
     </ion-item>
@@ -40,16 +40,16 @@
          *ngIf="carte_form.controls.adresse.errors.required"
          color="danger"
          text-left
-      >
-        l adresse du client est requise
+         translate>
+        client_modal_pag.adress_required
       </p>
 
 
     </div>
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Telephone
+      <ion-label   color="primary" floating translate>
+        client_modal_pag.phone
       </ion-label>
       <ion-input type="text" clearInput  formControlName="telephone"></ion-input>
     </ion-item>
@@ -58,23 +58,25 @@
          *ngIf="carte_form.controls.telephone.errors.required"
          color="danger"
          text-left
-      >
-        le numero de telephone est requise
+         translate>
+        client_modal_pag.phone_required
       </p>
       <p ion-text
          *ngIf="carte_form.controls.telephone.errors.minlength"
          color="danger"
          text-left
+         translate
+         [translateParams]="{val:(carte_form.controls.telephone.errors.minlength.requiredLength - carte_form.controls.telephone.errors.minlength.actualLength)}"
       >
-        longueur min 9 , manque : {{ carte_form.controls.telephone.errors.minlength.requiredLength - carte_form.controls.telephone.errors.minlength.actualLength }}
+        client_modal_pag.phone_length
       </p>
 
     </div>
 
 
     <ion-item>
-      <ion-label   color="primary" floating>
-        Ville
+      <ion-label   color="primary" floating translate>
+        client_modal_pag.town
       </ion-label>
       <ion-input clearInput  formControlName="ville"></ion-input>
     </ion-item>
@@ -83,30 +85,33 @@
          *ngIf="carte_form.controls.ville.errors.required"
          color="danger"
          text-left
-      >
-        la ville est requise
+         translate>
+        client_modal_pag.town
       </p>
     </div>
     <ion-item>
-          <ion-label   color="primary" floating>
-            Quartier
-          </ion-label>
-          <ion-input clearInput  formControlName="quartier"></ion-input>
+      <ion-label   color="primary" floating translate>
+        client_modal_pag.quarter
+      </ion-label>
+      <ion-input clearInput  formControlName="quartier"></ion-input>
     </ion-item>
     <div *ngIf="carte_form.controls.quartier.errors && (carte_form.controls.quartier.dirty || carte_form.controls.quartier.touched)">
       <p ion-text
          *ngIf="carte_form.controls.quartier.errors.required"
          color="danger"
          text-left
-      >
-        la ville est requise
+         translate>
+        client_modal_pag.quarter_required
       </p>
     </div>
 
 
 
-    <button ion-button block   [disabled]="!carte_form.valid">
-       {{iscreation ? "Creer" : "Modifier" }}
+    <button *ngIf="iscreation" ion-button block   [disabled]="!carte_form.valid">
+       {{'client_modal_pag.create'|translate}}
+    </button>
+    <button *ngIf="!iscreation" ion-button block   [disabled]="!carte_form.valid">
+      {{'client_modal_pag.edit'|translate}}
     </button>
   </form>
 
