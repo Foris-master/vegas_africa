@@ -54,20 +54,10 @@ export class AuthProvider {
    */
 
   request_reset(data: {login: string}) {
-    let d = {}
-    if(data.login.split("@").length>1){
-      d = {
-        email : data.login,
-      };
 
-    }else {
-      d= {
-        num_tel : data.login,
-      };
-    }
     return new Promise((resolve, reject) => {
 
-      this.http.post(this.BASE_URL + 'forgotpassword', d)
+      this.http.post(this.BASE_URL + 'forgotpassword', data)
         .subscribe(res => {
           console.log(res)
           if(res["code"]==200){
@@ -82,7 +72,7 @@ export class AuthProvider {
     });
   }
 
-  reset(data: {code: string}) {
+  reset(data: {code?: string,new_pass_word?:string}) {
 
 
     return new Promise((resolve, reject) => {

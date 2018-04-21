@@ -15,7 +15,9 @@ import {UserProvider} from "../../providers/user/user";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name:'profile',
+})
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',

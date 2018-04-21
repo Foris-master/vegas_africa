@@ -13,7 +13,9 @@ import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name:'client-modal',
+})
 @Component({
   selector: 'page-client-modal',
   templateUrl: 'client-modal.html',

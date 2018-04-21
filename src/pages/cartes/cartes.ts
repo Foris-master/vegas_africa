@@ -13,7 +13,9 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name:'cards',
+})
 @Component({
   selector: 'page-cartes',
   templateUrl: 'cartes.html',

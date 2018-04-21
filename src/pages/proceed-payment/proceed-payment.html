@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title >{{'proceed_modal_pag.title'| translate}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()" >{{'proceed_modal_pag.close'|translate}}</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<form  text-center    [formGroup]="proceed_form" (ngSubmit)="refill()">
+  <ion-item>
+    <ion-label   color="primary" floating translate>
+      proceed_modal_pag.numero
+    </ion-label>
+    <ion-input clearInput [disabled]="true" formControlName="numero"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label   color="primary" floating translate>
+      proceed_modal_pag.message
+    </ion-label>
+    <ion-textarea name="msg" id="msg" cols="30" rows="3" formControlName="message"  clearInput>
+    </ion-textarea>
+  </ion-item>
+  <div *ngIf="proceed_form.controls.message.errors && (proceed_form.controls.message.dirty || proceed_form.controls.message.touched)">
+    <p ion-text
+       *ngIf="proceed_form.controls.message.errors.required"
+       color="danger"
+       text-left
+       translate>
+      proceed_modal_pag.message_required
+    </p>
+
+
+  </div>
+
+
+
+  <ion-item>
+    <ion-label   color="primary" floating translate>
+      proceed_modal_pag.montant
+    </ion-label>
+    <ion-input clearInput  formControlName="montant"></ion-input>
+  </ion-item>
+  <div *ngIf="proceed_form.controls.montant.errors && (proceed_form.controls.montant.dirty || proceed_form.controls.montant.touched)">
+    <p ion-text
+       *ngIf="proceed_form.controls.montant.errors.required"
+       color="danger"
+       text-left
+       translate>
+      proceed_modal_pag.town
+    </p>
+  </div>
+
+
+  <button *ngIf="!iscreation" ion-button block   [disabled]="!proceed_form.valid">
+    {{'proceed_modal_pag.valider'|translate}}
+  </button>
+</form>
+</ion-content>

@@ -12,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name:'contacts',
+})
 @Component({
   selector: 'page-contacts',
   templateUrl: 'contacts.html',
@@ -27,7 +29,7 @@ export class ContactsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private  toast: ToastProvider,  private translate: TranslateService,
               private _FB : FormBuilder,private _AUTH : AuthProvider, public api : ApiProvider,private  Auth : AuthProvider) {
     this.contact_form = this._FB.group({
-      'service'        : ['',Validators.compose([Validators.required])],
+      // 'service'        : ['',Validators.compose([Validators.required])],
       'message'        : ['',Validators.compose([Validators.required,Validators.maxLength(160)])],
     });
     this.Auth.getAuthUser().then((u)=>{
@@ -54,7 +56,8 @@ export class ContactsPage {
     let p = {
       login: this.login,
       cle_de_session: this.cle_de_session,
-      service:this.contact_form.controls['service'].value,
+      service:0,
+      // service:this.contact_form.controls['service'].value,
       message:this.contact_form.controls['message'].value
     };
 
@@ -70,7 +73,7 @@ export class ContactsPage {
 
   }
   clear(){
-    this.contact_form.controls['service'].setValue(null);
+    // this.contact_form.controls['service'].setValue(null);
     this.contact_form.controls['message'].setValue('');
   }
 

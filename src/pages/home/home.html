@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{"home_pag.title"|translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+
+
+
+      <div *ngFor="let s of services" (click)="openService($event,s)">
+        <ion-card    >
+        <img  [src]="s.image"/>
+        <div class="tt"></div>
+        <!--<img [src]="'assets/imgs/service/'+s.code+'.jpg'"/>-->
+
+        <div class="card-title">{{s.nom}}</div>
+        <div class="card-subtitle"><p style="color:white" [innerHTML]="s.description"></p></div>
+        </ion-card>
+
+      </div>
+
+
+
+</ion-content>
+
+

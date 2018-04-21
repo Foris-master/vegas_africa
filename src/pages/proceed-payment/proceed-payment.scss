@@ -1,0 +1,25 @@
+page-proceed-payment {
+  background: #231332;
+
+ .toolbar-title{
+   font-size: 2rem !important;
+ }
+  .item-inner{
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  ion-item{
+    color: white !important;
+    background: rgba(80, 43, 87, 0.56) !important;
+    border: none;
+    border-radius: 5px;
+    margin: 5px 0 !important;
+  }
+
+  input{
+    margin: 0;
+    height: 30px;
+  }
+
+}

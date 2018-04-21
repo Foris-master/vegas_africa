@@ -26,6 +26,20 @@ import {ClientModalPage} from "../pages/client-modal/client-modal";
 import { TranslateModule ,TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateService } from '@ngx-translate/core';
+import {HomePage} from "../pages/home/home";
+import {CanalPage} from "../pages/canal/canal";
+import {AutoCompleteModule} from "ionic2-auto-complete";
+import {HomePageModule} from "../pages/home/home.module";
+import {CanalPageModule} from "../pages/canal/canal.module";
+import {HistoryPageModule} from "../pages/history/history.module";
+import {ContactsPageModule} from "../pages/contacts/contacts.module";
+import {SoldePageModule} from "../pages/solde/solde.module";
+import {CartesPageModule} from "../pages/cartes/cartes.module";
+import {ProfilePageModule} from "../pages/profile/profile.module";
+import {ClientModalPageModule} from "../pages/client-modal/client-modal.module";
+import {Braintree} from "@ionic-native/braintree";
+import {ProceedPaymentPage} from "../pages/proceed-payment/proceed-payment";
+
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, "./assets/i18n/", ".json");
 }
@@ -37,18 +51,21 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     RegisterPage,
     LoginPage,
     PasswordResetPage,
-    ProfilePage,
-    HistoryPage,
-    ContactsPage,
-    SoldePage,
-    CartesPage,
-    ClientModalPage
+    ProceedPaymentPage
   ],
-
 
   imports: [
     BrowserModule,
     HttpClientModule,
+    AutoCompleteModule,
+    HomePageModule,
+    CanalPageModule,
+    HistoryPageModule,
+    ContactsPageModule,
+    SoldePageModule,
+    CartesPageModule,
+    ClientModalPageModule,
+    ProfilePageModule,
     IonicModule.forRoot(MyApp),
     TranslateModule.forRoot({
       loader: {
@@ -57,7 +74,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-
     IonicStorageModule.forRoot({
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     })
@@ -74,13 +90,17 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ContactsPage,
     SoldePage,
     CartesPage,
-    ClientModalPage
+    ClientModalPage,
+    HomePage,
+    CanalPage,
+    ProceedPaymentPage
   ],
 
   providers: [
     StatusBar,
     SplashScreen,
     HttpClient,
+    Braintree,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     httpInterceptorProviders,
         AuthProvider,

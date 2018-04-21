@@ -12,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+@IonicPage({
+  name:'history',
+})
 @Component({
   selector: 'page-history',
   templateUrl: 'history.html',

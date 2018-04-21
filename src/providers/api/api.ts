@@ -5,6 +5,7 @@ import {UserProvider} from "../user/user";
 import {Transaction} from "../../models/transaction";
 import {Carte} from "../../models/carte";
 import {RequestOptions} from "@angular/http";
+import {Service} from "../../models/service";
 
 /*
   Generated class for the this provider.
@@ -141,7 +142,10 @@ export class ApiProvider {
                 res.message.data = Transaction.ParseFromArray(res.message.data)
               }else if(url=='lister_client_info'){
                 res.message.data = Carte.ParseFromArray(res.message.data)
+              }else if(url=='service'){
+                res.message = Service.ParseFromArray(res.message)
               }
+
               resolve(res);
             }else{
               reject(res);

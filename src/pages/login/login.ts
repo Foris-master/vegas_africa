@@ -5,8 +5,8 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {RegisterPage} from "../register/register";
 import {PasswordResetPage} from "../password-reset/password-reset";
 import {ToastProvider} from "../../providers/toast/toast";
-import {HistoryPage} from "../history/history";
 import { TranslateService } from '@ngx-translate/core';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -43,7 +43,7 @@ export class LoginPage {
     });
     this._AUTH.isAuthenticated().then((b)=>{
       if(b){
-        this.navCtrl.setRoot(HistoryPage);
+        this.navCtrl.setRoot('home');
       }
     })
   }
@@ -72,7 +72,7 @@ export class LoginPage {
           this.toast.success(translated);
         });
 
-        this.navCtrl.setRoot(HistoryPage);
+        this.navCtrl.setRoot('home');
       })
       .catch((error : any) =>
       {

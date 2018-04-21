@@ -1,4 +1,7 @@
 {
+  "home_pag":{
+    "title":"Accueil"
+  },
   "loading":{
     "message":"veuillez patientez..."
   },
@@ -44,8 +47,10 @@
     "code":"Entrez le code",
     "code_required":"le code est requit",
     "send":"Envoyez",
+    "reset":"Reinitialiser",
+    "code_ok":"code valide veuillez definir votre nouveau mot de passe",
     "reset_send":"Code de renitialisation envoye !",
-    "reset":"Mot de passe reinitialise !"
+    "reset_msg":"Mot de passe reinitialise !"
   },
   "history_pag":{
     "title":"Historique",
@@ -61,7 +66,30 @@
   "balance_pag":{
     "title":"Solde",
     "header":"Votre solde est de :",
-    "currency":"FCFA"
+    "currency":"FCFA",
+    "cap":"Carte de Credit/Paypal",
+    "or":"Orange Money",
+    "mtn":"MTN Mobile Money",
+    "exp":"Express Union"
+  },
+  "canal_pag":{
+    "title":"Espace Canal+",
+    "card":"Numero Carte",
+    "cancel_sub":"Annuler",
+    "valid_sub":"Souscrire",
+    "kit":"Type kit",
+    "service_type":"Type Livraison",
+    "address":"Adresse",
+    "town":"Ville",
+    "quarter":"Quartier",
+    "subcribe":"Souscrire",
+    "confirm_title":"Messsage",
+    "confirm_message":"Ajouter un assecesoire ou vos besions",
+    "confirm_cancel":"Annuler",
+    "confirm_cancel_message":"Vous avez annule le message associ",
+    "confirm":"Valider",
+    "summary_title":"Bilan",
+    "summary_msg":"<hr><ion-row>Description :<br> {{description}}</ion-row><hr><ion-row>Concerne : {{concern}}</ion-row><hr><ion-row>Montant : <strong>{{amount}} FCFA</strong></ion-row><hr>"
   },
   "client_pag":{
     "title" : "Clients",
@@ -100,6 +128,15 @@
     "create_message":"client ajoute avec succes",
     "update_message":"client modifie avec succes"
   },
+  "proceed_modal_pag":{
+    "title":"Recharger le compte",
+    "close":"Fermer",
+    "numero":"Numero de telephone",
+    "message":"Identifiant de la transaction effectuee",
+    "montant":"Montant recharge (a titre indique)",
+    "valider":"Recharger",
+    "refill_message":"Requete en cours de traittement"
+  },
   "contact_pag":{
     "title":"Nous contacter",
     "header1":"Trouvez votre bien immobilier (appartement, maison, terrain) à vendre ou à louer parmi des milliers d'annonces.",
@@ -115,9 +152,10 @@
     "updated":"profile mis a jour!"
   },
   "menu_pag":{
+      "home":"Accueil",
       "history":"Historiques",
-      "discount":"Solde",
-      "clients":"Supplément",
+      "discount":"Solde/Recharge",
+      "cards":"Cartes",
       "profile":"Profile",
       "contact":"Nous contacter",
       "deconnexion":"Deconnexion"

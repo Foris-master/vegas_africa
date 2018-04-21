@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{"canal_pag.title" |translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+
+  <div *ngIf="selectedIndex==0">
+    <div *ngFor="let s of services" (click)="showDetails($event,s)" >
+      <ion-card  class="service"  >
+        <div class="card-title">{{s.nom}}</div>
+        <div *ngIf="s.show_details">
+          <ion-row >
+            <ion-col col-11 class="card">
+              <!--<ion-auto-complete [dataProvider]="getCards" [options]="{ placeholder : 'Choisir une carte' }"></ion-auto-complete>-->
+              <ion-item>
+                <ion-label   color="primary" floating translate>
+                  canal_pag.card
+                </ion-label>
+                <ion-select [(ngModel)]="s.card_id">
+                  <ion-option  *ngFor="let c of cards" value="{{c.id}}">{{c.num_carte}}</ion-option>
+                </ion-select>
+
+              </ion-item>
+            </ion-col>
+            <ion-col col-1 (click)="addCard(s)">
+              <ion-icon name="add"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <button  ion-button block class="cancel" (click)="cancelSubcribe($event,s)" >
+                {{'canal_pag.cancel_sub'|translate}}
+              </button>
+            </ion-col>
+            <ion-col col-6>
+              <button  ion-button block class="ok"  [disabled]="!s.card_id" (click)="reSubcribe($event,s)">
+                {{'canal_pag.valid_sub'|translate}}
+              </button>
+            </ion-col>
+          </ion-row>
+        </div>
+
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="selectedIndex==2" class="accessoires" padding>
+    <div *ngFor="let a of accessoires"  >
+      <!--<ion-card  class="service"  >
+        <div class="card-title"></div>
+      </ion-card>-->
+      <ion-item>
+        <ion-label>{{a.nom}}</ion-label>
+        <ion-checkbox color="dark" value="a.id" (ionChange)="onChange(a,$event.checked)" ></ion-checkbox>
+      </ion-item>
+    </div>
+    <ion-fab left bottom  >
+      <button (click)="getTools()" [disabled]="!tool_meta.amount&&!tool_meta.msg"  color="dark"  ion-fab ><ion-icon name="albums"></ion-icon></button>
+    </ion-fab>
+    <ion-fab right bottom  (click)="message()">
+      <button class="help" ion-fab ><ion-icon name="help"></ion-icon></button>
+    </ion-fab>
+  </div>
+  <div *ngIf="selectedIndex==1" class="souscription" padding>
+    <form  text-center    [formGroup]="souscription_form" (ngSubmit)="subcribe($event)">
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          canal_pag.kit
+        </ion-label>
+        <ion-select formControlName="kit">
+          <ion-option  *ngFor="let k of kits" value="{{k.id}}">{{k.nom}}</ion-option>
+        </ion-select>
+
+      </ion-item>
+      <div *ngIf="souscription_form.controls.kit.errors && (souscription_form.controls.kit.dirty || souscription_form.controls.kit.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.kit.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.card_required
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          canal_pag.service_type
+        </ion-label>
+        <ion-select formControlName="type">
+          <ion-option  *ngFor="let t of types" value="{{t.id}}">{{t.nom}}</ion-option>
+        </ion-select>
+
+      </ion-item>
+      <div *ngIf="souscription_form.controls.type.errors && (souscription_form.controls.type.dirty || souscription_form.controls.type.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.type.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.card_required
+        </p>
+      </div>
+
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          canal_pag.address
+        </ion-label>
+        <ion-input clearInput  formControlName="adresse"></ion-input>
+      </ion-item>
+      <div *ngIf="souscription_form.controls.adresse.errors && (souscription_form.controls.adresse.dirty || souscription_form.controls.adresse.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.adresse.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.adress_required
+        </p>
+
+      </div>
+
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          canal_pag.town
+        </ion-label>
+        <ion-input clearInput  formControlName="ville"></ion-input>
+      </ion-item>
+      <div *ngIf="souscription_form.controls.ville.errors && (souscription_form.controls.ville.dirty || souscription_form.controls.ville.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.ville.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.town
+        </p>
+      </div>
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          canal_pag.quarter
+        </ion-label>
+        <ion-input clearInput  formControlName="quartier"></ion-input>
+      </ion-item>
+      <div *ngIf="souscription_form.controls.quartier.errors && (souscription_form.controls.quartier.dirty || souscription_form.controls.quartier.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.quartier.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.quarter_required
+        </p>
+      </div>
+
+      <button  ion-button block  class="submitb" [disabled]="!souscription_form.valid" >
+        {{'canal_pag.subcribe'|translate}}
+      </button>
+    </form>
+  </div>
+
+
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col col-4 [ngClass]="{'active': selectedIndex==0}" (click)="goTo(0)">
+      <ion-icon name="refresh"></ion-icon>
+      <br>
+      Reabonnement
+    </ion-col>
+    <ion-col col-4 [ngClass]="{'active': selectedIndex==1}" (click)="goTo(1)">
+      <ion-icon name="wifi"></ion-icon>
+      <br>
+      Souscription
+    </ion-col>
+    <ion-col col-4 [ngClass]="{'active': selectedIndex==2}" (click)="goTo(2)">
+      <ion-icon name="hammer"></ion-icon>
+      <br>
+      Acessoires
+    </ion-col>
+  </ion-row>
+</ion-footer>
+

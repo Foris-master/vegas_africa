@@ -13,6 +13,7 @@ import {AuthProvider} from "../providers/auth/auth";
 import {AuthenticatedUser} from "../models/user";
 import {CartesPage} from "../pages/cartes/cartes";
 import { TranslateService } from '@ngx-translate/core';
+import {HomePage} from "../pages/home/home";
 
 @Component({
   templateUrl: 'app.html'
@@ -22,7 +23,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
   public user: AuthenticatedUser= AuthenticatedUser.GetNewInstance();
-  pages: Array<{title: string, component: any,icon?: string}>;
+  pages: Array<{title: string, component: any,icon?: string,name?:string}>;
   public  isfrench : boolean = true;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
@@ -31,11 +32,12 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'history', component: HistoryPage , icon: "archive"},
-      { title: 'discount', component: SoldePage,icon: "card" },
-      { title: 'clients', component: CartesPage,icon: "people" },
-      { title: 'profile', component: ProfilePage,icon: "person" },
-      { title: 'contact', component: ContactsPage,icon: "help-circle" },
+      { title: 'home', component: HomePage , icon: "home",name:'home'},
+      { title: 'history', component: HistoryPage , icon: "archive",name:'history'},
+      { title: 'discount', component: SoldePage,icon: "card",name:'solde' },
+      { title: 'cards', component: CartesPage,icon: "people" ,name:'cards'},
+      { title: 'profile', component: ProfilePage,icon: "person",name:'profile' },
+      { title: 'contact', component: ContactsPage,icon: "help-circle" ,name:'contacts'},
       { title: 'deconnexion', component: LoginPage,icon: "log-out" },
     ];
     platform.ready().then(() => {
@@ -82,7 +84,8 @@ export class MyApp {
         console.log(err)
       })
     }else{
-      this.nav.setRoot(page.component);
+      this.nav.setRoot(page.name);
+      // this.nav.setRoot(page.component);
     }
 
   }

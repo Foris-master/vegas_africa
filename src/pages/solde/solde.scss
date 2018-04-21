@@ -14,4 +14,38 @@ page-solde {
   .zone{
     margin-top: 50px;
   }
+
+  ion-footer{
+    background: #4a2752;
+    color: white;
+    text-align: center;
+  }
+
+  .active{
+    background: white;
+    color: #4a2752;
+  }
+
+
+  .commission{
+    border: 5px solid gray;
+    border-left: none;
+    border-right: none;
+    margin: 20px 0;
+    color: white;
+    font-size: 16px;
+  }
+
+  .service{
+    background: #4a2752;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+
+  }
+
+  .plogo{
+    height:35px;
+    width:45px;
+  }
 }

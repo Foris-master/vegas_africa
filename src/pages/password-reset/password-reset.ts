@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ToastProvider} from "../../providers/toast/toast";
 import { TranslateService } from '@ngx-translate/core';
+import {PasswordValidation} from "../../validations/password_confirm";
 /**
  * Generated class for the PasswordResetPage page.
  *
@@ -22,7 +23,9 @@ export class PasswordResetPage {
 
   public request_form: FormGroup;
   public reset_form: FormGroup;
-  public next: boolean = false;
+  public new_form: FormGroup;
+  public next: number = 0;
+  public lg : string ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,
               private _FB : FormBuilder,private _AUTH : AuthProvider,private  toast: ToastProvider,
@@ -34,6 +37,12 @@ export class PasswordResetPage {
     this.reset_form = this._FB.group({
       'code': ['', Validators.required],
     });
+    this.new_form = this._FB.group({
+      'mot_de_pass'     : ['', Validators.compose([Validators.required,Validators.minLength(4)])],
+      'mot_de_pass_confirm'  : ["", Validators.compose([]) ],
+    },{
+      validator: PasswordValidation.MatchPassword // your validation method
+    });
 
   }
 
@@ -43,9 +52,9 @@ export class PasswordResetPage {
 
   request() : void
   {
-    let login : any  = this.request_form.controls['login'].value;
+    this.lg= this.request_form.controls['login'].value;
     let data = {
-      login : login,
+      login : this.lg,
     };
 
     this._AUTH.request_reset(data)
@@ -55,7 +64,7 @@ export class PasswordResetPage {
         this.translate.get("password_reset_pag.reset_send").subscribe(translated=>{
           this.toast.success(translated);
         });
-        this.next= true;
+        this.next= 1;
       })
       .catch((error : any) =>
       {
@@ -70,13 +79,41 @@ export class PasswordResetPage {
     let code : any  = this.reset_form.controls['code'].value;
     let data = {
       code : code,
+      login: this.lg
     };
 
     this._AUTH.reset(data)
       .then((auth : any) =>
       {
 
-        this.translate.get("password_reset_pag.reset").subscribe(translated=>{
+        this.next= 2;
+        this.translate.get("password_reset_pag.code_ok").subscribe(translated=>{
+          this.toast.success(translated);
+        });
+      })
+      .catch((error : any) =>
+      {
+        console.log(error.message);
+        this.toast.error(error.message)
+
+      });
+
+  }
+
+  newPass(){
+
+    let np : any  = this.new_form.controls['mot_de_pass'].value;
+    let data = {
+      new_pass_word : np,
+      login: this.lg
+    };
+
+    this._AUTH.reset(data)
+      .then((auth : any) =>
+      {
+
+        this.next= 2;
+        this.translate.get("password_reset_pag.reset_msg").subscribe(translated=>{
           this.toast.success(translated);
         });
         this.navCtrl.setRoot(LoginPage);
@@ -87,7 +124,6 @@ export class PasswordResetPage {
         this.toast.error(error.message)
 
       });
-
   }
 
   login(){

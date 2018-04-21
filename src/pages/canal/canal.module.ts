@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { ContactsPage } from './contacts';
+import { CanalPage } from './canal';
 import {TranslateModule} from "@ngx-translate/core";
+import {AutoCompleteModule} from "ionic2-auto-complete";
 
 @NgModule({
   declarations: [
-    ContactsPage,
+    CanalPage,
+
   ],
   imports: [
     TranslateModule,
-    IonicPageModule.forChild(ContactsPage),
+    AutoCompleteModule,
+    IonicPageModule.forChild(CanalPage),
+
   ],
 })
-export class ContactsPageModule {}
+export class CanalPageModule {}

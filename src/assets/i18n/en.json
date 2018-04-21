@@ -1,4 +1,7 @@
 {
+  "home_pag":{
+    "title":"Home"
+  },
   "loading":{
     "message":"please wait..."
   },
@@ -44,8 +47,11 @@
     "code":"Enter code",
     "code_required":"code is required",
     "send":"Send",
+    "reset":"Reset",
+    "code_ok":"code valid please set your new password",
     "reset_send":"Reset code send !",
-    "reset":"Password reset!"
+    "reset_msg":"Password reset!"
+
   },
   "history_pag":{
     "title":"Histories",
@@ -61,7 +67,22 @@
   "balance_pag":{
     "title":"Balance",
     "header":"Your balance is :",
-    "currency":"XAF"
+    "currency":"XAF",
+    "cap":"Credit Card /Paypal",
+    "or":"Orange Money",
+    "mtn":"MTN Mobile Money",
+    "exp":"Express Union"
+  },
+  "canal_pag":{
+    "title":"Canal+ Space",
+    "cancel_sub":"Cancel",
+    "valid_sub":"Subcribe",
+    "kit":"Kit type",
+    "service_type":"Livraison type",
+    "address":"Adress",
+    "town":"Town",
+    "quarter":"Quarter",
+    "subcribe":"Subcribe"
   },
   "client_pag":{
     "title" : "Clients",
@@ -115,9 +136,10 @@
     "updated":"Profile updated!"
   },
   "menu_pag":{
+    "home":"Home",
     "history":"Histories",
-    "discount":"Discount",
-    "clients":"Extra",
+    "discount":"Discount/Refill",
+    "cards":"Cards",
     "profile":"Profile",
     "contact":"Contact us",
     "deconnexion":"Deconnection"
