@@ -81,10 +81,44 @@ page-canal {
     height: 10px;
   }
 
+  .resubcribe{
+    ion-auto-complete {
+      //width: 50vw;
+      color: black;
+      .searchbar-search-icon{
+        margin-top: 5px;
+      }
+
+      .searchbar-clear-icon{
+        top:5px !important;
+      }
+
+      ul{
+        left : 6px;
+        width: 96%;
+        margin-right: 5px;
+      }
+    }
+  }
+
   .souscription{
-    ion-item .item-inner{
+    ion-item .item-inner,ion-auto-complete input{
       border: 1px solid #dedede;
       padding: 0 5px;
+
+    }
+    ion-auto-complete{
+      width: 100%;
+      margin: 10px 0;
+      .searchbar-search-icon{
+        top:20px;
+      }
+      input{
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        border: 1px solid #dedede !important;
+        height: 60px !important;
+      }
     }
     ion-item{
       margin: 10px 0;
@@ -117,8 +151,16 @@ page-canal {
       margin: 0px 8px -5px 0 !important;
       text-transform: uppercase;
     }
-  }
+    ion-fab-list span{
+      font-size: 10px;
+      color: $canal_red;
+      border-bottom: 2px solid;
+    }
 
+    .livraison_icon{
+      float: right;
+    }
+  }
 
 }
 

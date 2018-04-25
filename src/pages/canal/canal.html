@@ -9,15 +9,18 @@
 
 <ion-content class="card-background-page">
 
-  <div *ngIf="selectedIndex==0">
+  <div *ngIf="selectedIndex==0" class="resubcribe">
     <div *ngFor="let s of services" (click)="showDetails($event,s)" >
       <ion-card  class="service"  >
         <div class="card-title">{{s.nom}}</div>
         <div *ngIf="s.show_details">
           <ion-row >
             <ion-col col-11 class="card">
-              <!--<ion-auto-complete [dataProvider]="getCards" [options]="{ placeholder : 'Choisir une carte' }"></ion-auto-complete>-->
-              <ion-item>
+              <ion-auto-complete [dataProvider]="autocompletecard"
+                                 [options]="{ placeholder : 'Choisir une carte' }"
+                                 [(ngModel)]="s.card_id"
+              ></ion-auto-complete>
+            <!--  <ion-item>
                 <ion-label   color="primary" floating translate>
                   canal_pag.card
                 </ion-label>
@@ -25,7 +28,7 @@
                   <ion-option  *ngFor="let c of cards" value="{{c.id}}">{{c.num_carte}}</ion-option>
                 </ion-select>
 
-              </ion-item>
+              </ion-item>-->
             </ion-col>
             <ion-col col-1 (click)="addCard(s)">
               <ion-icon name="add"></ion-icon>
@@ -58,8 +61,22 @@
         <ion-checkbox color="dark" value="a.id" (ionChange)="onChange(a,$event.checked)" ></ion-checkbox>
       </ion-item>
     </div>
+    <ion-fab left top #fab3>
+
+    </ion-fab>
     <ion-fab left bottom  >
-      <button (click)="getTools()" [disabled]="!tool_meta.amount&&!tool_meta.msg"  color="dark"  ion-fab ><ion-icon name="albums"></ion-icon></button>
+      <button
+              [disabled]="!tool_meta.amount&&!tool_meta.msg"
+              color="dark"  ion-fab >
+        <ion-icon name="albums">
+        </ion-icon>
+      </button>
+      <ion-fab-list [attr.side]="i%2==0 ? 'top': 'right'" *ngFor="let l of type_livraisons,let i = index">
+        <span (click)="getTools(l.id)">
+          {{l.nom}}
+          <ion-icon class="livraison_icon" [name]=" l.nom.split('simple').length >1 ? 'play' : 'fastforward'"></ion-icon>
+        </span>
+      </ion-fab-list>
     </ion-fab>
     <ion-fab right bottom  (click)="message()">
       <button class="help" ion-fab ><ion-icon name="help"></ion-icon></button>
@@ -67,6 +84,8 @@
   </div>
   <div *ngIf="selectedIndex==1" class="souscription" padding>
     <form  text-center    [formGroup]="souscription_form" (ngSubmit)="subcribe($event)">
+
+
       <ion-item>
         <ion-label   color="primary" floating translate>
           canal_pag.kit
@@ -105,6 +124,29 @@
         </p>
       </div>
 
+      <!--<ion-item>-->
+      <!--<ion-label   color="primary" floating translate>
+        canal_pag.offer
+      </ion-label>-->
+      <ion-auto-complete [dataProvider]="autocompleteservice"
+                         formControlName="offer"
+                         [options]="{ placeholder : 'Choisir un service' }"
+      ></ion-auto-complete>
+      <!--<ion-select formControlName="offer">
+        <ion-option  *ngFor="let s of souscription_services" value="{{s.id}}">{{s.nom}}</ion-option>
+      </ion-select>-->
+
+      <!--</ion-item>-->
+      <div *ngIf="souscription_form.controls.offer.errors && (souscription_form.controls.offer.dirty || souscription_form.controls.offer.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.offer.errors.required"
+           color="danger"
+           text-left
+           translate>
+          canal_pag.offer_required
+        </p>
+      </div>
+
       <ion-item>
         <ion-label   color="primary" floating translate>
           canal_pag.address
@@ -120,6 +162,32 @@
           canal_pag.adress_required
         </p>
 
+      </div>
+
+      <ion-item>
+        <ion-label   color="primary" floating translate>
+          register_pag.tel
+        </ion-label>
+        <ion-input clearInput  formControlName="tel"></ion-input>
+      </ion-item>
+      <div *ngIf="souscription_form.controls.tel.errors && (souscription_form.controls.tel.dirty || souscription_form.controls.tel.touched)">
+        <p ion-text
+           *ngIf="souscription_form.controls.tel.errors.required"
+           color="danger"
+           text-left
+           translate
+        >
+          register_pag.tel_required
+        </p>
+        <p ion-text
+           *ngIf="souscription_form.controls.tel.errors.minlength"
+           color="danger"
+           text-left
+           translate
+           [translateParams]="{val:(souscription_form.controls.tel.errors.minlength.requiredLength - souscription_form.controls.tel.errors.minlength.actualLength)}"
+        >
+          register_pag.tel_length
+        </p>
       </div>
 
       <ion-item>

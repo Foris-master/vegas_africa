@@ -39,6 +39,12 @@ import {ProfilePageModule} from "../pages/profile/profile.module";
 import {ClientModalPageModule} from "../pages/client-modal/client-modal.module";
 import {Braintree} from "@ionic-native/braintree";
 import {ProceedPaymentPage} from "../pages/proceed-payment/proceed-payment";
+import { CompletServicesProvider } from '../providers/complet-services/complet-services';
+import { CompletCardsProvider } from '../providers/complet-cards/complet-cards';
+import {LoginPageModule} from "../pages/login/login.module";
+import {PasswordResetPageModule} from "../pages/password-reset/password-reset.module";
+import {ProceedPaymentPageModule} from "../pages/proceed-payment/proceed-payment.module";
+import {RegisterPageModule} from "../pages/register/register.module";
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, "./assets/i18n/", ".json");
@@ -47,16 +53,16 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
 @NgModule({
   declarations: [
-    MyApp,
-    RegisterPage,
-    LoginPage,
-    PasswordResetPage,
-    ProceedPaymentPage
+    MyApp
   ],
 
   imports: [
     BrowserModule,
     HttpClientModule,
+    RegisterPageModule,
+    PasswordResetPageModule,
+    ProceedPaymentPageModule,
+    LoginPageModule,
     AutoCompleteModule,
     HomePageModule,
     CanalPageModule,
@@ -107,7 +113,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     ToastProvider,
     ApiProvider,
     UserProvider,
-    TranslateService
+    TranslateService,
+    CompletServicesProvider,
+    CompletCardsProvider
   ]
 
 })

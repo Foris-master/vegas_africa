@@ -109,7 +109,6 @@ export class ApiProvider {
 
       this.http.post<BackResp>(this.BASE_URL + url, body,requestOptions)
         .subscribe(res => {
-          console.log(res)
           if(res.code=="200"){
             resolve(res);
           }else{

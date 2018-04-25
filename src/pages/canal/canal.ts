@@ -8,6 +8,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ClientModalPage} from "../client-modal/client-modal";
 import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 import {ToastProvider} from "../../providers/toast/toast";
+import {CompletServicesProvider} from "../../providers/complet-services/complet-services";
+import {CompletCardsProvider} from "../../providers/complet-cards/complet-cards";
 
 
 /**
@@ -30,12 +32,14 @@ export class CanalPage {
   public login : string ;
   public cle_de_session : string ;
   public tools : Array<number>=[];
-  public services : Array<string>;
+  public services : Array<any>;
+  public souscription_services : Array<any>;
   public selectedIndex:number=0;
   public  cards : Array<Carte> =[];
   public  kits : Array<any> =[];
   public  types : Array<any> =[];
   public  accessoires : Array<any> =[];
+  public  type_livraisons : Array<any> =[];
   public souscription_form: FormGroup;
   public profileModal: Modal;
   public tool_msg:string;
@@ -44,9 +48,11 @@ export class CanalPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private API: ApiProvider, private _FB : FormBuilder
               ,private  Auth : AuthProvider,public modalCtrl: ModalController,public alertCtrl: AlertController,
-              private translate: TranslateService,private  toast: ToastProvider) {
+              private translate: TranslateService,private  toast: ToastProvider,
+              public autocompleteservice:CompletServicesProvider,public autocompletecard: CompletCardsProvider) {
 
     this.loadLang();
+    this.autocompleteservice.service_id=this.navParams.get("service_id");
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       // do something
       this.loadLang();
@@ -55,10 +61,10 @@ export class CanalPage {
     this.Auth.getAuthUser().then((u)=>{
       this.login=u.num_tel;
       this.cle_de_session= u.cle_de_session;
-      let p = {
+      let p: { cle_de_session?:any,login?:any,service_id?:any,souscription?:any}= {
         login: this.login,
         cle_de_session: this.cle_de_session,
-        service_id:this.navParams.get("service_id")
+        service_id:this.navParams.get("service_id"),
       };
 
       this.API.getRequest('sous_service',p).then(
@@ -68,6 +74,7 @@ export class CanalPage {
           console.log(err)
         }
       )
+
 
       this.API.getRequest('accessoires',p).then(
         (data: any)=>{
@@ -90,32 +97,25 @@ export class CanalPage {
           console.log(err)
         }
       )
-
-      let k = {
-        show_loading: true,
-        start: 0,
-        length: 300,
-        login: this.login,
-        cle_de_session: this.cle_de_session
-      };
-      this.API.getRequest('lister_client_info', k).then(
-        (data: any) => {
-          // console.log(data);
-          this.cards = data.message.data;
-          // console.log(this.total,this.page)
-        }, (err) => {
+      let pa ={login:p.login,cle_de_session:p.cle_de_session,pour_souscription:0};
+      this.API.getRequest('type_installation',pa).then(
+        (data: any)=>{
+          this.type_livraisons = data.message;
+        },(err)=>{
           console.log(err)
         }
       )
+
     })
 
     this.souscription_form = this._FB.group({
+      'offer'        : ['', Validators.compose([Validators.required])],
       'kit'        : ['', Validators.compose([Validators.required])],
       'type'        : ['', Validators.compose([Validators.required])],
+      'tel'     : ['', Validators.compose([Validators.required,Validators.minLength(9)])],
       'adresse'     : ['',Validators.compose([ Validators.required])],
       'ville'     : ['', Validators.compose([Validators.required])],
       'quartier'     : ['', Validators.compose([Validators.required])],
-
     });
 
   }
@@ -123,7 +123,6 @@ export class CanalPage {
   goTo(index : number){
     this.selectedIndex = index;
   }
-
   loadLang(){
     this.translate.get([
       "canal_pag.confirm_title",
@@ -163,14 +162,17 @@ export class CanalPage {
 
   subcribe(evt){
     let p= {
+      formule:this.souscription_form.controls.offer.value,
       kit:this.souscription_form.controls.kit.value,
       type:this.souscription_form.controls.type.value,
       adresse:this.souscription_form.controls.adresse.value,
       ville:this.souscription_form.controls.ville.value,
+      tel:this.souscription_form.controls.tel.value,
       quartier:this.souscription_form.controls.quartier.value,
       login: this.login,
       cle_de_session: this.cle_de_session,
     }
+    let of = this.services.find(this.findIndexToUpdate,p.formule);
     let ko = this.kits.find(this.findIndexToUpdate,p.kit);
     let to = this.types.find(this.findIndexToUpdate,p.type);
     let am =0 ;
@@ -178,8 +180,11 @@ export class CanalPage {
     con+=ko.nom;
     con+=" | ";
     con+=to.nom;
+    con+=" | ";
+    con+=of.nom;
     am+=parseFloat(ko.montant);
     am+=parseFloat(to.montant);
+    am+=parseFloat(of.montant);
    this.bilan({msg:'vous souscripte au service',amount:am,concern:con},'subcribe',p)
     evt.stopPropagation();
   }
@@ -233,9 +238,16 @@ export class CanalPage {
     confirm.present();
   }
 
-  getCards(){
-
-    return this.cards;
+  getTools(id){
+    let tl = this.type_livraisons.find(this.findIndexToUpdate,id);
+    let am =0 ;
+    let con="";
+    con+="type livraison : "+tl.nom;
+    con+=" | ";
+    con+=this.tool_meta.concern;
+    am+=parseFloat(tl.montant);
+    am+=this.tool_meta.amount;
+    this.bilan({msg:this.tool_meta.msg,concern:con,amount:am},'tools',{type:tl.id});
   }
 
   bilan(obj:{msg:string,amount:number,concern:string},target:string,datas?:any){
@@ -270,12 +282,14 @@ export class CanalPage {
                  accessoires: this.tools,
                  login: this.login,
                  cle_de_session: this.cle_de_session,
+                 show_loading:true,
+                 type:datas.type
                }
                this.API.postRequest('accessoires_paiement',p).then((dat:any)=>{
                  console.log(dat)
                  this.toast.success(dat.message)
                },(err)=>{
-                 this.toast.success(err.message)
+                 this.toast.error(err.message)
                })
              }
              else if(target == 'resubcribe'){
@@ -283,21 +297,23 @@ export class CanalPage {
                  login: this.login,
                  cle_de_session: this.cle_de_session,
                  service:datas.id,
-                 info_client:datas.card_id
+                 info_client:datas.card_id,
+                 show_loading:true,
 
                };
                this.API.postRequest('valider_paiement',p).then((dat:any)=>{
-                 console.log(data)
+                 console.log("suc",data)
                  this.toast.success(dat.message)
                },(err)=>{
-                 console.log(err)
+                 console.log("err",err)
+                 this.toast.error(err.message)
                });
             }else if(target=='subcribe'){
                this.API.postRequest('souscription_paiement',datas).then((dat:any)=>{
                  console.log(data)
                  this.toast.success(dat.message);
                },(err)=>{
-
+                 this.toast.error(err.message)
                });
              }
             }
@@ -310,9 +326,7 @@ export class CanalPage {
 
   }
 
-  getTools(){
-    this.bilan({msg:this.tool_meta.msg,concern:this.tool_meta.concern,amount:this.tool_meta.amount},'tools');
-  }
+
 
   presentModal(s:{card_id:string}) {
     this.profileModal = this.modalCtrl.create(ClientModalPage, { client: null ,login: this.login, cle_de_session:this.cle_de_session});
